@@ -1,0 +1,23 @@
+@use 'sass:math';
+
+@function strip-units($number) {
+  @return math.div($number, ($number * 0 + 1));
+};
+
+@function px-to-rem($pixel) {
+  @if math.is-unitless($pixel) {
+    @return math.div($pixel, 16) + rem;
+  }
+  @else {
+    @error 'The pix-to-rem() function doesn\'t accept unit values.'
+  }
+};
+
+@function px-to-em($pixel) {
+  @if math.is-unitless($pixel) {
+    @return math.div($pixel, 16) + em;
+  }
+  @else {
+    @error 'The pix-to-em() function doesn\'t accept unit values.'
+  }
+};
