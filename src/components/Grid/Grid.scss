@@ -1,0 +1,27 @@
+@use '../../styles/utils' as utils;
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(6, auto);
+
+  width: min(100% - utils.px-to-rem(20), 80rem);
+  margin-inline: auto;
+
+  @include utils.breakpoint-up(large) {
+    // TODO: turn columns and gap size responsive.
+    grid-template-columns: repeat(12, auto);
+    column-gap: utils.px-to-rem(26);
+
+    main {
+      grid-column: 1 / 9;
+      background-color: lightsalmon;
+    }
+  
+    aside {
+      grid-column: 9 / -1;
+      background-color: lightgreen;
+    }
+  }
+
+}
