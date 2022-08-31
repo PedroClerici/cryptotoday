@@ -1,0 +1,6 @@
+@use '../../styles/utils' as utils;
+
+footer {
+  background-color: lightcoral;
+  grid-column: 1 / -1;
+}

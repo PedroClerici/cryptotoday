@@ -1,0 +1,26 @@
+@use '../../styles/utils' as utils;
+@use '../../styles/globals/' as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  height: utils.px-to-rem(72);
+  background-color: lightblue;
+
+  grid-column: 1 / -1;
+
+  // Creating the bottom border:
+  &::after {
+    position:absolute;
+    top: utils.px-to-rem(72);
+    left: 0;
+    background: var(--surface-shade-color);
+    width:100vw;
+    height: 1px;
+    content:"";
+  }
+
+  &__logo {
+    width: utils.px-to-rem(180);
+  }
+}

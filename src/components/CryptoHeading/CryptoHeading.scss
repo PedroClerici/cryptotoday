@@ -1,0 +1,7 @@
+@use '../../styles/utils' as utils;
+
+.crypto-heading {
+  @include utils.breakpoint-up(large) {
+    grid-column: 1 / 9;
+  }
+}

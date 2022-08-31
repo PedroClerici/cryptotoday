@@ -1,0 +1,7 @@
+@use '../../styles/utils' as utils;
+
+.price-chart {
+  @include utils.breakpoint-up(large) {
+    grid-column: 1 / 9;
+  }
+}
