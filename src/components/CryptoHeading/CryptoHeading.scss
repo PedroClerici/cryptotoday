@@ -1,7 +1,16 @@
 @use '../../styles/utils' as utils;
 
 .crypto-heading {
-  @include utils.breakpoint-up(large) {
-    grid-column: 1 / 9;
+  display: flex;
+  align-items: center;
+  gap: utils.px-to-rem(10);
+
+  &__currency-icon {
+    width: utils.px-to-rem(42);
+  }
+
+  &__currency-name {
+    font-size: utils.px-to-rem(34);
+    margin-bottom: 0;
   }
 }
