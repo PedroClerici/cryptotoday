@@ -1,7 +1,11 @@
 @use '../../styles/utils' as utils;
 
 .price-calculator {
-  @include utils.breakpoint-up(large) {
-    grid-column: 9 / -1;
+  width: 100%;
+
+  h2 {
+    @include utils.breakpoint-down(medium) {
+      display: none;
+    }
   }
 }

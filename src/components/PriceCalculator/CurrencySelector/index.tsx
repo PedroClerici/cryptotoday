@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import arrow from '../../../assets/arrow.svg';
-import { vsCurrencyList, VsCurrency } from '../../../currencies/vsCurrency';
+import { UserContext } from '../../../context/userContext';
+import { vsCurrencyList } from '../../../currencies/vsCurrency';
 
 import './CurrencySelector.scss';
 
@@ -9,9 +10,7 @@ interface Props {
 
 const CurrencySelector: React.FC<Props> = () => {
   const [isActive, setIsActive] = useState(false);
-  const [currentVsCurrency, setCurrentVsCurrency] = useState<VsCurrency>(
-    vsCurrencyList.find((vsCurrency) => vsCurrency.id === 'usd')!,
-  );
+  const { selectedVsCurrency, setSelectedVsCurrency } = useContext(UserContext);
 
   return (
     <div
@@ -25,32 +24,30 @@ const CurrencySelector: React.FC<Props> = () => {
         tabIndex={0}
         onClick={() => { setIsActive(!isActive); }}
       >
-        {`${currentVsCurrency.id.toUpperCase()} - ${currentVsCurrency.symbol}`}
+        {`${selectedVsCurrency.id.toUpperCase()} - ${selectedVsCurrency.symbol}`}
         <img
           src={arrow}
           alt="arrow"
           style={isActive ? { transform: 'rotate(180deg)' } : {}}
         />
       </div>
-      <div
-        className="currency-selector__content"
-        style={{ display: isActive ? 'block' : 'none' }}
-      >
-        {vsCurrencyList.map((vsCurrency) => (
-          <div
-            key={vsCurrency.id}
-            className="currency-selector__item"
-            // tabIndex={0}
-            aria-hidden="true"
-            onClick={() => {
-              setCurrentVsCurrency(vsCurrency);
-              setIsActive(false);
-            }}
-          >
-            {`${vsCurrency.id.toUpperCase()} - ${vsCurrency.symbol}`}
-          </div>
-        ))}
-      </div>
+      {isActive && (
+        <div className="currency-selector__content">
+          {vsCurrencyList.map((vsCurrency) => (
+            <div
+              key={vsCurrency.id}
+              className="currency-selector__item"
+              aria-hidden="true"
+              onClick={() => {
+                setSelectedVsCurrency(vsCurrency);
+                setIsActive(false);
+              }}
+            >
+              {`${vsCurrency.id.toUpperCase()} - ${vsCurrency.symbol}`}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

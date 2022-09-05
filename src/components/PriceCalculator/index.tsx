@@ -1,12 +1,15 @@
 import React from 'react';
+
+import CurrencySelector from './CurrencySelector';
+import Converter from './Converter';
+
 import './PriceCalculator.scss';
 
-interface Props {
-}
-
-const PriceCalculator: React.FC<Props> = () => (
+const PriceCalculator = () => (
   <div className="price-calculator">
-    PriceCalculator
+    <h2>Price Calculator</h2>
+    <CurrencySelector />
+    <Converter />
   </div>
 );
 

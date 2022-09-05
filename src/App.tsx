@@ -1,7 +1,5 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-// import cryptoInfoService from './services/cryptoInfoService';
-import './styles/globals/_index.scss';
 
 import Grid from './components/Grid';
 import Header from './components/Header';
