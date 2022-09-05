@@ -1,0 +1,55 @@
+@use '../../../styles/utils' as utils;
+
+.converter {
+  width: 100%;
+  height: utils.px-to-rem(90);
+  background-color: var(--surface-dim-color);
+  padding: utils.px-to-rem(14);
+  border-radius: utils.px-to-rem(12);
+
+  &__input-container {
+    display: flex;
+    align-items:baseline;
+    height: utils.px-to-rem(34);
+  }
+
+  &__input,
+  &__input:focus {
+    width: 50%;
+    padding: 0;
+    font-size: utils.px-to-rem(22);
+    border: 0;
+    background: none;
+    outline: none;
+  }
+
+  &__input::placeholder {
+    color: var(--surface-shade-color);
+  }
+
+  &__cryptocurrency-tag {
+    display: flex;
+    align-items: center;
+    gap: utils.px-to-rem(4);
+    height: 100%;
+    margin-left: auto;
+    padding: utils.px-to-rem(6);
+    padding-right: utils.px-to-rem(12);
+    border-radius: utils.px-to-rem(50);
+    background-color: var(--surface-color);
+  }
+
+  &__cryptocurrency-icon {
+    height: 100%;
+  }
+}
+
+.total {
+  display: flex;
+  font-size: utils.px-to-rem(22);
+  color: var(--surface-muted-color);
+
+  span {
+    margin-left: auto;
+  }
+}
