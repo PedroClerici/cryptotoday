@@ -3,7 +3,7 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../../context/userContext';
 
-import './Converter.scss';
+import './styles.scss';
 
 const Converter = () => {
   const { selectedCryptocurrency, selectedVsCurrency } = useContext(UserContext);

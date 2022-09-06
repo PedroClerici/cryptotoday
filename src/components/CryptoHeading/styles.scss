@@ -1,12 +1,12 @@
-@use '../../styles/utils' as utils;
+@use '../../styles/functions' as *;
 
 .crypto-heading {
   display: flex;
   align-items: center;
-  gap: utils.px-to-rem(10);
+  gap: px-to-rem(10);
 
   &__currency-icon {
-    width: utils.px-to-rem(42);
+    width: px-to-rem(42);
   }
 
   &__currency-name {

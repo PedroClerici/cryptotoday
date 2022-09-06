@@ -1,10 +1,10 @@
-@use '../../styles/utils' as utils;
-@use '../../styles/globals/' as *;
+@use 'src/styles/functions' as *;
+@use 'src/styles/mixins' as *;
 
 .header {
   display: flex;
   align-items: center;
-  height: utils.px-to-rem(72);
+  height: px-to-rem(72);
   background-color: lightblue;
 
   grid-column: 1 / -1;
@@ -12,7 +12,7 @@
   // Creating the bottom border:
   &::after {
     position:absolute;
-    top: utils.px-to-rem(72);
+    top: px-to-rem(72);
     left: 0;
     background: var(--surface-shade-color);
     width:100vw;
@@ -21,6 +21,6 @@
   }
 
   &__logo {
-    width: utils.px-to-rem(180);
+    width: px-to-rem(180);
   }
 }

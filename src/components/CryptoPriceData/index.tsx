@@ -1,10 +1,8 @@
 import React from 'react';
-// import styles from './CryptoPriceData.module.scss';
 
-interface Props {
-}
+import './styles.scss';
 
-const CryptoPriceData: React.FC<Props> = () => (
+const CryptoPriceData = () => (
   <div>
     CryptoPriceData
   </div>

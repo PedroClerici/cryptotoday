@@ -3,12 +3,9 @@ import arrow from '../../../assets/arrow.svg';
 import { UserContext } from '../../../context/userContext';
 import { vsCurrencyList } from '../../../currencies/vsCurrency';
 
-import './CurrencySelector.scss';
+import './styles.scss';
 
-interface Props {
-}
-
-const CurrencySelector: React.FC<Props> = () => {
+const CurrencySelector = () => {
   const [isActive, setIsActive] = useState(false);
   const { selectedVsCurrency, setSelectedVsCurrency } = useContext(UserContext);
 

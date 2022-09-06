@@ -3,7 +3,7 @@ import React from 'react';
 import CurrencySelector from './CurrencySelector';
 import Converter from './Converter';
 
-import './PriceCalculator.scss';
+import './styles.scss';
 
 const PriceCalculator = () => (
   <div className="price-calculator">

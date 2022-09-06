@@ -1,6 +1,0 @@
-@use '../../styles/utils' as utils;
-
-.popular-cryptos {
-  @include utils.breakpoint-up(large) {
-  }
-}

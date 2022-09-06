@@ -5,7 +5,7 @@ import { UserContext } from '../../context/userContext';
 
 import SymbolTag from './SymbolTag';
 
-import './CryptoHeading.scss';
+import './styles.scss';
 
 const CryptoHeading = () => {
   const { selectedCryptocurrency } = useContext(UserContext);

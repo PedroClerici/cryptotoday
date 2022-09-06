@@ -1,17 +1,19 @@
-@use '../../styles/utils' as utils;
+@use 'src/styles/functions' as *;
+@use 'src/styles/mixins' as *;
 
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(6, auto);
 
-  width: min(100% - utils.px-to-rem(20), 80rem);
+  width: min(100% - px-to-rem(20), 76rem);
   margin-inline: auto;
 
-  @include utils.breakpoint-up(large) {
+  @include breakpoint-up(large) {
     // TODO: turn columns and gap size responsive.
-    grid-template-columns: repeat(12, auto);
-    column-gap: utils.px-to-rem(26);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: px-to-rem(26);
+    row-gap: px-to-rem(28);
 
     main {
       grid-column: 1 / 9;
@@ -23,5 +25,4 @@
       background-color: lightgreen;
     }
   }
-
 }

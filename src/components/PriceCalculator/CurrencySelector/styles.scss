@@ -1,8 +1,9 @@
-@use '../../../styles/utils' as utils;
+@use 'src/styles/functions' as *;
+@use 'src/styles/mixins' as *;
 
 .currency-selector {
-  $padding: utils.px-to-rem(12);
-  $radius: utils.px-to-rem(12);
+  $padding: px-to-rem(12);
+  $radius: px-to-rem(12);
 
   position: relative;
   width: 100%;
@@ -12,14 +13,14 @@
     align-items: center;
     padding: $padding;
     border-radius: $radius;
-    border: utils.px-to-rem(1.5) solid var(--surface-shade-color);
+    border: px-to-rem(1.5) solid var(--surface-shade-color);
     color: var(--gray-color);
     background: var(--surface-color);
     cursor: pointer;
 
     img {
       margin-left: auto;
-      margin-right: utils.px-to-rem(5);
+      margin-right: px-to-rem(5);
     }
   }
 

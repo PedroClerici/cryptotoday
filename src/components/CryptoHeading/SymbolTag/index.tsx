@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../../context/userContext';
 
-import './SymbolTag.scss';
+import './styles.scss';
 
 const SymbolTag = () => {
   const { selectedCryptocurrency } = useContext(UserContext);

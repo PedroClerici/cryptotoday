@@ -1,0 +1,8 @@
+@use 'src/styles/functions' as *;
+@use 'src/styles/mixins' as *;
+
+.price-chart {
+  @include breakpoint-up(large) {
+    grid-column: 1 / 9;
+  }
+}

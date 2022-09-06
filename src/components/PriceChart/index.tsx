@@ -1,10 +1,7 @@
 import React from 'react';
-import './PriceChart.scss';
+import './styles.scss';
 
-interface Props {
-}
-
-const PriceChart: React.FC<Props> = () => (
+const PriceChart = () => (
   <div className="price-chart">
     PriceChart
   </div>

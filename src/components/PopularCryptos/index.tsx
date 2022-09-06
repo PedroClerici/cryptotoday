@@ -1,10 +1,7 @@
 import React from 'react';
-import './PopularCryptos.scss';
+import './styles.scss';
 
-interface Props {
-}
-
-const PopularCryptos: React.FC<Props> = () => (
+const PopularCryptos = () => (
   <div className="popular-cryptos">
     PopularCryptos
   </div>

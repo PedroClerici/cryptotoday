@@ -1,0 +1,14 @@
+@use 'src/styles/functions' as *;
+@use 'src/styles/mixins' as *;
+
+.price-calculator {
+  width: 100%;
+
+  h2 {
+    display: none;
+
+    @include breakpoint-up(large) {
+      display: block;
+    }
+  }
+}

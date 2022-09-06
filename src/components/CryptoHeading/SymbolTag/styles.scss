@@ -1,4 +1,5 @@
-@use '../../../styles/utils' as utils;
+@use 'src/styles/functions' as *;
+@use 'src/styles/mixins' as *;
 
 .symbol-tag {
   display: flex;
@@ -6,12 +7,12 @@
   align-items: center;
 
   background-color: var(--surface-dim-color);
-  border-radius: utils.px-to-rem(6);
+  border-radius: px-to-rem(6);
 
-  padding: utils.px-to-rem(3) utils.px-to-rem(4);
+  padding: px-to-rem(3) px-to-rem(4);
 
   &__symbol {
-    font-size: utils.px-to-rem(16);
+    font-size: px-to-rem(16);
     color: var(--surface-muted-color);
     margin: 0;
   }
