@@ -9,7 +9,7 @@ import PriceChart from '../components/PriceChart';
 import PopularCryptos from '../components/PopularCryptos';
 import CryptoPriceData from '../components/CryptoPriceData';
 
-const MobileLayout = () => (
+const MobileLayout = (
   <Grid>
     <Header />
     <CryptoHeading />

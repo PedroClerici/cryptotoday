@@ -9,7 +9,7 @@ import PriceChart from '../components/PriceChart';
 import PopularCryptos from '../components/PopularCryptos';
 import CryptoPriceData from '../components/CryptoPriceData';
 
-const DesktopLayout = () => (
+const DesktopLayout = (
   <Grid>
     <Header />
     <main>
