@@ -7,7 +7,7 @@ import './styles.scss';
 
 const CurrencySelector = () => {
   const [isActive, setIsActive] = useState(false);
-  const { selectedVsCurrency, setSelectedVsCurrency } = useContext(UserContext);
+  const { vsCurrency, setVsCurrency } = useContext(UserContext);
 
   return (
     <div
@@ -21,7 +21,7 @@ const CurrencySelector = () => {
         tabIndex={0}
         onClick={() => { setIsActive(!isActive); }}
       >
-        {`${selectedVsCurrency.id.toUpperCase()} - ${selectedVsCurrency.symbol}`}
+        {`${vsCurrency.id.toUpperCase()} - ${vsCurrency.symbol}`}
         <img
           src={arrow}
           alt="arrow"
@@ -30,17 +30,17 @@ const CurrencySelector = () => {
       </div>
       {isActive && (
         <div className="currency-selector__content">
-          {vsCurrencyList.map((vsCurrency) => (
+          {vsCurrencyList.map((currency) => (
             <div
-              key={vsCurrency.id}
+              key={currency.id}
               className="currency-selector__item"
               aria-hidden="true"
               onClick={() => {
-                setSelectedVsCurrency(vsCurrency);
+                setVsCurrency(currency);
                 setIsActive(false);
               }}
             >
-              {`${vsCurrency.id.toUpperCase()} - ${vsCurrency.symbol}`}
+              {`${currency.id.toUpperCase()} - ${currency.symbol}`}
             </div>
           ))}
         </div>

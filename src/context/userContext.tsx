@@ -2,12 +2,13 @@
 import React, { useState } from 'react';
 import { Cryptocurrency, cryptocurrenciesList } from '../currencies/cryptocurrencies';
 import { VsCurrency, vsCurrencyList } from '../currencies/vsCurrency';
+import cryptoInfoService from '../services/cryptoInfoService';
 
 type UserContextType = {
-  selectedCryptocurrency: Cryptocurrency
-  setSelectedCryptocurrency: (newState: Cryptocurrency) => void
-  selectedVsCurrency: VsCurrency
-  setSelectedVsCurrency: (newState: VsCurrency) => void
+  cryptocurrency: Cryptocurrency
+  setCryptocurrency: (newState: Cryptocurrency) => void
+  vsCurrency: VsCurrency
+  setVsCurrency: (newState: VsCurrency) => void
 }
 
 type UserContextProps = {
@@ -15,31 +16,31 @@ type UserContextProps = {
 }
 
 const defaultValue = {
-  selectedCryptocurrency: cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === 'ethereum')!,
-  setSelectedCryptocurrency: () => {},
-  selectedVsCurrency: vsCurrencyList.find((vsCurrency) => vsCurrency.id === 'usd')!,
-  setSelectedVsCurrency: () => {},
+  cryptocurrency: cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === 'bitcoin')!,
+  setCryptocurrency: () => {},
+  vsCurrency: vsCurrencyList.find((vsCurrency) => vsCurrency.id === 'usd')!,
+  setVsCurrency: () => {},
 };
 
 export const UserContext = React.createContext<UserContextType>(defaultValue);
 
 export const UserContextProvider = ({ children }: UserContextProps) => {
-  const [selectedCryptocurrency, setSelectedCryptocurrency] = useState<Cryptocurrency>(
-    defaultValue.selectedCryptocurrency,
+  const [cryptocurrency, setCryptocurrency] = useState<Cryptocurrency>(
+    defaultValue.cryptocurrency,
   );
 
-  const [selectedVsCurrency, setSelectedVsCurrency] = useState<VsCurrency>(
-    defaultValue.selectedVsCurrency,
+  const [vsCurrency, setVsCurrency] = useState<VsCurrency>(
+    defaultValue.vsCurrency,
   );
 
   return (
     <UserContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
-        selectedCryptocurrency,
-        setSelectedCryptocurrency,
-        selectedVsCurrency,
-        setSelectedVsCurrency,
+        cryptocurrency,
+        setCryptocurrency,
+        vsCurrency,
+        setVsCurrency,
       }}
     >
       {children}
