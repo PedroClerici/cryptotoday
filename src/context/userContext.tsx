@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Cryptocurrency, cryptocurrenciesList } from '../currencies/cryptocurrencies';
-import { VsCurrency, vsCurrencyList } from '../currencies/vsCurrency';
+import { VsCurrency, vsCurrenciesList } from '../currencies/vsCurrencies';
 import cryptoInfoService from '../services/cryptoInfoService';
 
 type UserContextType = {
@@ -21,8 +21,11 @@ type UserContextProps = {
   children: React.ReactNode;
 }
 
+cryptoInfoService.getMarketData('bitcoin', 'usd')
+  .then((data) => console.log(data));
+
 const defaultValue = {
-  cryptocurrency: cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === 'bitcoin')!,
+  cryptocurrency: cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === 'monero')!,
   setCryptocurrency: () => {},
   cryptocurrencyPrice: 0,
   setCryptocurrencyPrice: () => {},
@@ -30,7 +33,7 @@ const defaultValue = {
   setCryptocurrencyChangePercentage: () => {},
   prevDays: 7,
   setPrevDays: () => {},
-  vsCurrency: vsCurrencyList.find((vsCurrency) => vsCurrency.id === 'usd')!,
+  vsCurrency: vsCurrenciesList.find((vsCurrency) => vsCurrency.id === 'usd')!,
   setVsCurrency: () => {},
 };
 

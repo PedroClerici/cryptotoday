@@ -3,7 +3,7 @@ export type VsCurrency = {
   symbol: string,
 };
 
-export const vsCurrencyList: VsCurrency[] = [
+export const vsCurrenciesList: VsCurrency[] = [
   {
     id: 'usd',
     symbol: '$',

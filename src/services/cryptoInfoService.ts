@@ -1,8 +1,8 @@
-import { Price, MarketData, MarketChart } from '../types/cryptoInfoTypes';
+import { Price, MarketData, MarketChart } from '../types/cryptoInfoServiceTypes';
 
 const baseURL = 'https://api.coingecko.com/api/v3';
 
-const formatter = new Intl.NumberFormat('en-US', {
+export const percentageFormatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
@@ -19,7 +19,7 @@ const getMarketData = async (
   cryptoId: string,
   vsCurrencyId: string,
 ): Promise<MarketData> => {
-  const data = await fetch(`${baseURL}/coins/markets?vs_currency=${cryptoId}&ids=${vsCurrencyId}&sparkline=false`)
+  const data = await fetch(`${baseURL}/coins/markets?vs_currency=${vsCurrencyId}&ids=${cryptoId}&sparkline=false`)
     .then((response) => response.json())
     .then((marketData) => marketData[0]);
 
@@ -48,7 +48,7 @@ const getPriceChangePercentage = async (
     .then((response) => response.json())
     .then((obj: any) => obj[0][`price_change_percentage_${priceChangePercentage}d_in_currency`]);
 
-  return +formatter.format(data);
+  return +percentageFormatter.format(data);
 };
 
 const cryptoInfoService = {

@@ -1,5 +1,5 @@
 export type Cryptocurrency = {
-  id: string
+  id: string,
   symbol: string,
   name: string,
 };
@@ -66,3 +66,5 @@ export const cryptocurrenciesList: Cryptocurrency[] = [
     name: 'Stellar',
   },
 ];
+
+export default cryptocurrenciesList;
