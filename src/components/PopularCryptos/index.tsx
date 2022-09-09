@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 import React, { useContext, useEffect, useState } from 'react';

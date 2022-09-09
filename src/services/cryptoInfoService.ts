@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 import { Price, MarketData, MarketChart } from '../types/cryptoInfoServiceTypes';
 
 const baseURL = 'https://api.coingecko.com/api/v3';
@@ -30,8 +29,6 @@ const getMarketData = async (
 
   return data;
 };
-
-getMarketData(['bitcoin', 'monero'], 'usd').then((data) => console.log(data));
 
 const getMarketChart = async (
   cryptoId: string,

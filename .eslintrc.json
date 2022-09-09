@@ -31,7 +31,8 @@
     ],
     "import/extensions": ["warn", "never"],
     "react/function-component-definition": ["warn", { "namedComponents": "arrow-function" }],
-    "react/require-default-props": ["off"]
+    "react/require-default-props": ["off"],
+    "no-restricted-syntax": ["off"]
   },
   "settings": {
     "import/resolver": {
