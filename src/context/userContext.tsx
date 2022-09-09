@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Cryptocurrency, cryptocurrenciesList } from '../currencies/cryptocurrencies';
 import { VsCurrency, vsCurrenciesList } from '../currencies/vsCurrencies';
 import cryptoInfoService from '../services/cryptoInfoService';
@@ -54,21 +54,22 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     ).then((price) => setCryptocurrencyChangePercentage(price));
   }, [cryptocurrency, vsCurrency, prevDays]);
 
+  const userData = useMemo(() => ({
+    cryptocurrency,
+    setCryptocurrency,
+    cryptocurrencyPrice,
+    setCryptocurrencyPrice,
+    cryptocurrencyChangePercentage,
+    setCryptocurrencyChangePercentage,
+    prevDays,
+    setPrevDays,
+    vsCurrency,
+    setVsCurrency,
+  }), []);
+
   return (
     <UserContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        cryptocurrency,
-        setCryptocurrency,
-        cryptocurrencyPrice,
-        setCryptocurrencyPrice,
-        cryptocurrencyChangePercentage,
-        setCryptocurrencyChangePercentage,
-        prevDays,
-        setPrevDays,
-        vsCurrency,
-        setVsCurrency,
-      }}
+      value={userData}
     >
       {children}
     </UserContext.Provider>
