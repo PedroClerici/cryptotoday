@@ -16,8 +16,8 @@ const PopularCryptos = () => {
           key={cryptocurrency.symbol}
           cryptocurrencyName={cryptocurrency.name}
           cryptocurrencySymbol={cryptocurrency.symbol}
-          cryptocurrencyPrice={cryptocurrency.price}
-          cryptocurrencyChangePercentage={cryptocurrency.priceChangePercentage}
+          cryptocurrencyPrice={cryptocurrency.current_price}
+          cryptocurrencyChangePercentage={cryptocurrency.price_change_percentage_24h}
         />
       ))}
     </div>

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useMemo, useState } from 'react';
-import { PopularCryptoData } from '../types/cryptoInfoServiceTypes';
+import React, { useEffect, useState } from 'react';
+import { MarketData } from '../types/cryptoInfoServiceTypes';
 import { Cryptocurrency, cryptocurrenciesList } from '../currencies/cryptocurrencies';
 import { VsCurrency, vsCurrenciesList } from '../currencies/vsCurrencies';
 import cryptoInfoService from '../services/cryptoInfoService';
@@ -16,8 +16,8 @@ type UserContextType = {
   setPrevDays: (newState: number) => void
   vsCurrency: VsCurrency
   setVsCurrency: (newState: VsCurrency) => void
-  popularCryptosData: PopularCryptoData[]
-  setPopularCryptosData: (newState: PopularCryptoData[]) => void
+  popularCryptosData: MarketData
+  setPopularCryptosData: (newState: MarketData) => void
 }
 
 type UserContextProps = {
@@ -25,7 +25,7 @@ type UserContextProps = {
 }
 
 const defaultValue = {
-  cryptocurrency: cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === 'monero')!,
+  cryptocurrency: cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === 'bitcoin')!,
   setCryptocurrency: () => {},
   cryptocurrencyPrice: 0,
   setCryptocurrencyPrice: () => {},
@@ -50,7 +50,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
   const [
     popularCryptosData,
     setPopularCryptosData,
-  ] = useState<PopularCryptoData[]>(defaultValue.popularCryptosData);
+  ] = useState<MarketData>(defaultValue.popularCryptosData);
 
   useEffect(() => {
     cryptoInfoService.getPrice(cryptocurrency.id, vsCurrency.id)
@@ -67,9 +67,8 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
       popularCryptosIds.push(crypto.id);
     }
 
-    setPopularCryptosData(
-      cryptoInfoService.getPopularCryptosData(vsCurrency.id, popularCryptosIds),
-    );
+    cryptoInfoService.getMarketData(popularCryptosIds, vsCurrency.id)
+      .then((data) => setPopularCryptosData(data));
   }, [cryptocurrency, vsCurrency, prevDays]);
 
   return (
