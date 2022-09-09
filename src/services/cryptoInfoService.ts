@@ -1,4 +1,9 @@
-import { Price, MarketData, MarketChart } from '../types/cryptoInfoServiceTypes';
+import {
+  Price,
+  MarketData,
+  MarketChart,
+  PopularCryptoData,
+} from '../types/cryptoInfoServiceTypes';
 
 const baseURL = 'https://api.coingecko.com/api/v3';
 
@@ -26,6 +31,25 @@ const getMarketData = async (
     cryptoData.price_change_percentage_24h = +percentageFormatter
       .format(cryptoData.price_change_percentage_24h);
   }
+
+  return data;
+};
+
+const getPopularCryptosData = (vsCurrencyId: string, popularCryptosIds: string[]) => {
+  const data: PopularCryptoData[] = [];
+
+  getMarketData(popularCryptosIds, vsCurrencyId)
+    .then((marketData) => {
+      for (const cryptoData of marketData) {
+        const cryptoDataObject: PopularCryptoData = {
+          name: cryptoData.name,
+          symbol: cryptoData.symbol,
+          price: cryptoData.current_price,
+          priceChangePercentage: cryptoData.price_change_percentage_24h,
+        };
+        data.push(cryptoDataObject);
+      }
+    });
 
   return data;
 };
@@ -58,6 +82,7 @@ const getPriceChangePercentage = async (
 const cryptoInfoService = {
   getPrice,
   getMarketData,
+  getPopularCryptosData,
   getMarketChart,
   getPriceChangePercentage,
 };

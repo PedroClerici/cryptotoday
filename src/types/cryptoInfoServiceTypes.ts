@@ -14,6 +14,13 @@ export type MarketData = {
   'price_change_percentage_24h': number,
 }[]
 
+export type PopularCryptoData = {
+  name: string
+  symbol: string
+  price: number
+  priceChangePercentage: number
+}
+
 export type MarketChart = {
   'prices': [number, number][]
 }

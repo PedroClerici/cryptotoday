@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useMemo, useState } from 'react';
+import { PopularCryptoData } from '../types/cryptoInfoServiceTypes';
 import { Cryptocurrency, cryptocurrenciesList } from '../currencies/cryptocurrencies';
 import { VsCurrency, vsCurrenciesList } from '../currencies/vsCurrencies';
 import cryptoInfoService from '../services/cryptoInfoService';
@@ -15,6 +16,8 @@ type UserContextType = {
   setPrevDays: (newState: number) => void
   vsCurrency: VsCurrency
   setVsCurrency: (newState: VsCurrency) => void
+  popularCryptosData: PopularCryptoData[]
+  setPopularCryptosData: (newState: PopularCryptoData[]) => void
 }
 
 type UserContextProps = {
@@ -32,6 +35,8 @@ const defaultValue = {
   setPrevDays: () => {},
   vsCurrency: vsCurrenciesList.find((vsCurrency) => vsCurrency.id === 'usd')!,
   setVsCurrency: () => {},
+  popularCryptosData: [],
+  setPopularCryptosData: () => {},
 };
 
 export const UserContext = React.createContext<UserContextType>(defaultValue);
@@ -42,6 +47,10 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
   const [cryptocurrencyChangePercentage, setCryptocurrencyChangePercentage] = useState<number>(0);
   const [prevDays, setPrevDays] = useState<number>(defaultValue.prevDays);
   const [vsCurrency, setVsCurrency] = useState<VsCurrency>(defaultValue.vsCurrency);
+  const [
+    popularCryptosData,
+    setPopularCryptosData,
+  ] = useState<PopularCryptoData[]>(defaultValue.popularCryptosData);
 
   useEffect(() => {
     cryptoInfoService.getPrice(cryptocurrency.id, vsCurrency.id)
@@ -52,24 +61,34 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
       vsCurrency.id,
       prevDays,
     ).then((price) => setCryptocurrencyChangePercentage(price));
-  }, [cryptocurrency, vsCurrency, prevDays]);
 
-  const userData = useMemo(() => ({
-    cryptocurrency,
-    setCryptocurrency,
-    cryptocurrencyPrice,
-    setCryptocurrencyPrice,
-    cryptocurrencyChangePercentage,
-    setCryptocurrencyChangePercentage,
-    prevDays,
-    setPrevDays,
-    vsCurrency,
-    setVsCurrency,
-  }), []);
+    const popularCryptosIds: string[] = [];
+    for (const crypto of cryptocurrenciesList.slice(0, 6)) {
+      popularCryptosIds.push(crypto.id);
+    }
+
+    setPopularCryptosData(
+      cryptoInfoService.getPopularCryptosData(vsCurrency.id, popularCryptosIds),
+    );
+  }, [cryptocurrency, vsCurrency, prevDays]);
 
   return (
     <UserContext.Provider
-      value={userData}
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      value={{
+        cryptocurrency,
+        setCryptocurrency,
+        cryptocurrencyPrice,
+        setCryptocurrencyPrice,
+        cryptocurrencyChangePercentage,
+        setCryptocurrencyChangePercentage,
+        prevDays,
+        setPrevDays,
+        vsCurrency,
+        setVsCurrency,
+        popularCryptosData,
+        setPopularCryptosData,
+      }}
     >
       {children}
     </UserContext.Provider>
