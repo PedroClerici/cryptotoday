@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { Price, MarketData, MarketChart } from '../types/cryptoInfoServiceTypes';
 
 const baseURL = 'https://api.coingecko.com/api/v3';
@@ -16,15 +17,21 @@ const getPrice = async (cryptoId: string, vsCurrencyId: string): Promise<number>
 };
 
 const getMarketData = async (
-  cryptoId: string,
+  cryptoIds: string[],
   vsCurrencyId: string,
 ): Promise<MarketData> => {
-  const data = await fetch(`${baseURL}/coins/markets?vs_currency=${vsCurrencyId}&ids=${cryptoId}&sparkline=false`)
-    .then((response) => response.json())
-    .then((marketData) => marketData[0]);
+  const data: MarketData = await fetch(`${baseURL}/coins/markets?vs_currency=${vsCurrencyId}&ids=${cryptoIds.join()}&sparkline=false`)
+    .then((response) => response.json());
+
+  for (const cryptoData of data) {
+    cryptoData.price_change_percentage_24h = +percentageFormatter
+      .format(cryptoData.price_change_percentage_24h);
+  }
 
   return data;
 };
+
+getMarketData(['bitcoin', 'monero'], 'usd').then((data) => console.log(data));
 
 const getMarketChart = async (
   cryptoId: string,

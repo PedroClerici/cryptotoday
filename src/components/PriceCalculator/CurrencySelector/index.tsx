@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import arrow from '../../../assets/arrow.svg';
 import { UserContext } from '../../../context/userContext';
-import { vsCurrencyList } from '../../../currencies/vsCurrency';
+import { vsCurrenciesList } from '../../../currencies/vsCurrencies';
 
 import './styles.scss';
 
@@ -30,7 +30,7 @@ const CurrencySelector = () => {
       </div>
       {isActive && (
         <div className="currency-selector__content">
-          {vsCurrencyList.map((currency) => (
+          {vsCurrenciesList.map((currency) => (
             <div
               key={currency.id}
               className="currency-selector__item"

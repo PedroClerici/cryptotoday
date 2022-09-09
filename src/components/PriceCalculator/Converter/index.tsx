@@ -1,21 +1,14 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '../../../context/userContext';
-import cryptoInfoService from '../../../services/cryptoInfoService';
 
 import './styles.scss';
 
 const Converter = () => {
-  const { cryptocurrency, vsCurrency } = useContext(UserContext);
-  const [price, setPrice] = useState<number>(0);
+  const { cryptocurrency, cryptocurrencyPrice, vsCurrency } = useContext(UserContext);
   const [input, setInput] = useState<string>('');
-
-  useEffect(() => {
-    cryptoInfoService.getPrice(cryptocurrency.id, vsCurrency.id)
-      .then((res) => setPrice(res));
-  }, [vsCurrency, cryptocurrency]);
 
   return (
     <>
@@ -41,7 +34,9 @@ const Converter = () => {
       </div>
       <div className="total">
         Total
-        <span>{`${vsCurrency.id.toUpperCase()} ${vsCurrency.symbol}${(+input * price).toLocaleString('en-US')}`}</span>
+        <span>
+          {`${vsCurrency.id.toUpperCase()} ${vsCurrency.symbol}${(+input * cryptocurrencyPrice).toLocaleString('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}`}
+        </span>
       </div>
     </>
   );

@@ -31,7 +31,6 @@
     ],
     "import/extensions": ["warn", "never"],
     "react/function-component-definition": ["warn", { "namedComponents": "arrow-function" }],
-    "react/destructuring-assignment": ["warn", "never"],
     "react/require-default-props": ["off"]
   },
   "settings": {

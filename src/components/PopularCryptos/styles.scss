@@ -1,0 +1,35 @@
+@use 'src/styles/functions' as *;
+@use 'src/styles/mixins' as *;
+
+.popular-cryptos {
+  &__card {
+    display: flex;
+    align-items: center;
+    height: px-to-rem(62);
+    padding: px-to-rem(14);
+    border-radius: px-to-rem(12);
+    background: var(--surface-dim-color);
+  }
+
+  &__crypto-info {
+    padding-left: px-to-rem(8);
+  }
+
+  &__crypto-icon {
+    height: 100%;
+  }
+
+  &__crypto-symbol {
+    color: var(--surface-muted-color);
+  }
+
+  &__crypto-price {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  &__crypto-change-percentage,
+  &__crypto-symbol {
+    font-size: px-to-rem(14);
+  }
+}

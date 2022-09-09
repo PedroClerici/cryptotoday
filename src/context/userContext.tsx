@@ -21,9 +21,6 @@ type UserContextProps = {
   children: React.ReactNode;
 }
 
-cryptoInfoService.getMarketData('bitcoin', 'usd')
-  .then((data) => console.log(data));
-
 const defaultValue = {
   cryptocurrency: cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === 'monero')!,
   setCryptocurrency: () => {},
