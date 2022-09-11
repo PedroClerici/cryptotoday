@@ -15,5 +15,5 @@ export type MarketData = {
 }[]
 
 export type MarketChart = {
-  'prices': [number, number][]
-}
+  time: Date, price: number
+}[]

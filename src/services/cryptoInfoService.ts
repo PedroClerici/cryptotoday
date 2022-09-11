@@ -38,12 +38,18 @@ const getMarketChart = async (
   cryptoId: string,
   vsCurrencyId: string,
   days: number,
-  interval: 'daily' | 'hourly' = 'hourly',
+  interval: 'daily' | 'hourly' = days === 1 ? 'hourly' : 'daily',
 ): Promise<MarketChart> => {
   const data = await fetch(`${baseURL}/coins/${cryptoId}/market_chart?vs_currency=${vsCurrencyId}&days=${days}&interval=${interval}`)
     .then((response) => response.json());
 
-  return data;
+  const parsedData: MarketChart = [];
+  for (const d of data.prices) {
+    const timeAndPrice = { time: new Date(d[0]), price: d[1] };
+    parsedData.push(timeAndPrice);
+  }
+
+  return parsedData;
 };
 
 // TODO: Refactor priceChangePercentage handling: 1h | 24h | 7d | 14d | 30d | 1y
