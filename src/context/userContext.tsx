@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import type { MarketData } from '../types/cryptoInfoServiceTypes';
+import type { MarketChart, MarketData } from '../types/cryptoInfoServiceTypes';
 import { Cryptocurrency, cryptocurrenciesList } from '../currencies/cryptocurrencies';
 import { VsCurrency, vsCurrenciesList } from '../currencies/vsCurrencies';
 import cryptoInfoService from '../services/cryptoInfoService';
@@ -18,6 +18,8 @@ type UserContextType = {
   setVsCurrency: (newState: VsCurrency) => void
   popularCryptosData: MarketData
   setPopularCryptosData: (newState: MarketData) => void
+  marketChartData: MarketChart
+  setMarketChartData: (newState: MarketChart) => void
 }
 
 type UserContextProps = {
@@ -37,6 +39,8 @@ const defaultValue = {
   setVsCurrency: () => {},
   popularCryptosData: [],
   setPopularCryptosData: () => {},
+  marketChartData: [],
+  setMarketChartData: () => {},
 };
 
 export const UserContext = React.createContext<UserContextType>(defaultValue);
@@ -51,6 +55,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     popularCryptosData,
     setPopularCryptosData,
   ] = useState<MarketData>(defaultValue.popularCryptosData);
+  const [marketChartData, setMarketChartData] = useState<MarketChart>(defaultValue.marketChartData);
 
   useEffect(() => {
     cryptoInfoService.getPrice(cryptocurrency.id, vsCurrency.id)
@@ -69,6 +74,9 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
     cryptoInfoService.getMarketData(popularCryptosIds, vsCurrency.id)
       .then((data) => setPopularCryptosData(data));
+
+    cryptoInfoService.getMarketChart(cryptocurrency.id, vsCurrency.id, prevDays)
+      .then((data) => setMarketChartData(data));
   }, [cryptocurrency, vsCurrency, prevDays]);
 
   return (
@@ -87,6 +95,8 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         setVsCurrency,
         popularCryptosData,
         setPopularCryptosData,
+        marketChartData,
+        setMarketChartData,
       }}
     >
       {children}
