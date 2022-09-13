@@ -1,0 +1,30 @@
+.line-chart {
+
+  width: 100%;
+  height: 60%;
+}
+
+.tick {
+  text {
+    fill: var(--surface-muted-color);
+    text-anchor: middle;
+  }
+
+  line {
+    color: var(--surface-shade-color);
+    width: 2px;
+    z-index: -20;
+  }
+}
+
+.domain {
+  stroke: var(--surface-shade-color);
+  stroke-width: 1px;
+}
+
+.line-path {
+  fill: none;
+  stroke: var(--blue-color);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
