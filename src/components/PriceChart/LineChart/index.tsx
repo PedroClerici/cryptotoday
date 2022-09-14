@@ -1,3 +1,5 @@
+// TODO: Improve line graph responsiveness
+// @ts-nocheck
 import React, {
   useState,
   useRef,
@@ -5,14 +7,15 @@ import React, {
   useContext,
 } from 'react';
 import * as d3 from 'd3';
-import './styles.scss';
+import { TimeInterval } from 'd3';
 import { UserContext } from '../../../context/userContext';
+import './styles.scss';
 
 const LineChart = () => {
   const svgRef = useRef<SVGSVGElement>(null);
   const svgContainer = useRef<HTMLDivElement>(null);
 
-  const { marketChartData } = useContext(UserContext);
+  const { marketChartData, prevDays } = useContext(UserContext);
 
   const [width, setWidth] = useState<number>();
   const [height, setHeight] = useState<number>();
@@ -51,7 +54,7 @@ const LineChart = () => {
         right: 50,
         left: 0,
         top: 5,
-        bottom: 25,
+        bottom: 30,
       },
       containerWidth: 0,
       containerHeight: 0,
@@ -61,6 +64,37 @@ const LineChart = () => {
       .containerWidth = dimensions.width - dimensions.margins.right - dimensions.margins.left;
     dimensions
       .containerHeight = dimensions.height - dimensions.margins.top - dimensions.margins.bottom;
+
+    let parseDate: (() => {}) | null;
+    let ticksTime: TimeInterval | null;
+    switch (prevDays) {
+      case 1:
+        parseDate = null;
+        ticksTime = null;
+        break;
+      case 7:
+        parseDate = d3.timeFormat('%b/%d');
+        ticksTime = d3.timeDay.every(1);
+        break;
+      case 14:
+        parseDate = d3.timeFormat('%b/%d');
+        ticksTime = d3.timeDay.every(2);
+        break;
+      case 30:
+        parseDate = d3.timeFormat('%b/%d');
+        ticksTime = d3.timeDay.every(4);
+        break;
+      case 90:
+        parseDate = d3.timeFormat('%b/%d');
+        ticksTime = d3.timeDay.every(11);
+        break;
+      case 365:
+        parseDate = d3.timeFormat('%b/%Y');
+        ticksTime = d3.timeMonth.every(2);
+        break;
+      default:
+        break;
+    }
 
     // Selections:
     const svg = d3
@@ -87,8 +121,7 @@ const LineChart = () => {
     const xScale = d3
       .scaleTime()
       .domain(d3.extent(marketChartData, xAccessor)!)
-      .range([0, dimensions.containerWidth])
-      .nice(-1);
+      .range([0, dimensions.containerWidth]);
 
     // Axis:
     const yAxis = d3
@@ -109,6 +142,8 @@ const LineChart = () => {
     const xAxis = d3
       .axisBottom(xScale)
       .tickSize(0)
+      .ticks(ticksTime)
+      .tickFormat(parseDate)
       .tickPadding(dimensions.margins.bottom / 2);
 
     container
@@ -118,10 +153,12 @@ const LineChart = () => {
       .style('font-size', '0.9rem')
       .call(xAxis);
 
+    d3.select('.xAxis .tick:first-child').remove();
+
     // Drawing the line:
     const lineGenerator = d3.line()
-      .x(d => xScale(xAccessor(d)))
-      .y(d => yScale(yAccessor(d)));
+      .x((d) => xScale(xAccessor(d)))
+      .y((d) => yScale(yAccessor(d)));
 
     container.append('path')
       .attr('class', 'line-path')
@@ -132,7 +169,7 @@ const LineChart = () => {
 
   return (
     <div ref={svgContainer} className="line-chart">
-      <svg ref={svgRef} />
+      <svg ref={svgRef} width={width} height={height} />
     </div>
   );
 };
