@@ -1,0 +1,15 @@
+@use 'src/styles/functions' as *;
+@use 'src/styles/mixins' as *;
+
+.prev-time-selector {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  gap: px-to-rem(12);
+  list-style: none;
+
+  &__value {
+    color: var(--surface-shade-color);
+    cursor: pointer;
+  }
+}
