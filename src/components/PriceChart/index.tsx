@@ -5,10 +5,25 @@ import PrevTimeSelector from './PrevTimeSelector';
 import './styles.scss';
 
 const PriceChart = () => {
-  const { vsCurrency } = useContext(UserContext);
+  const {
+    vsCurrency,
+    cryptocurrencyPrice,
+    cryptocurrencyChangePercentage,
+  } = useContext(UserContext);
 
   return (
     <div className="price-chart">
+      <div className="price-chart__info">
+        <p className="price-chart__price">
+          {`${vsCurrency.symbol}${cryptocurrencyPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+        </p>
+        <p
+          className="price-chart__change-percentage"
+          style={+cryptocurrencyChangePercentage > 0 ? { color: 'var(--green-color)' } : { color: 'var(--red-color)' }}
+        >
+          {`${cryptocurrencyChangePercentage}%`}
+        </p>
+      </div>
       <div className="price-chart__toolbar">
         <PrevTimeSelector />
         <span className="price-chart__vs-currency">

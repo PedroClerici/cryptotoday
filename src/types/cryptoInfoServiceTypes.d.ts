@@ -11,7 +11,7 @@ export type MarketData = {
   'current_price': number,
   'market_cap': number,
   'circulating_supply': number,
-  'price_change_percentage_24h': number,
+  'price_change_percentage_24h': string,
 }[]
 
 export type MarketChart = {

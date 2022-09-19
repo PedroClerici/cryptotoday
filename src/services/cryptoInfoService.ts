@@ -6,10 +6,23 @@ import type {
 
 const baseURL = 'https://api.coingecko.com/api/v3';
 
-export const percentageFormatter = new Intl.NumberFormat('en-US', {
+const formatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
+
+const percentageFormatter = (percentage: number) => {
+  let formattedPercentage: string;
+
+  formattedPercentage = formatter
+    .format(percentage);
+
+  if (percentage > 0) {
+    formattedPercentage = `+${formattedPercentage}`;
+  }
+
+  return formattedPercentage;
+};
 
 const getPrice = async (cryptoId: string, vsCurrencyId: string): Promise<number> => {
   const data = await fetch(`${baseURL}/simple/price?ids=${cryptoId}&vs_currencies=${vsCurrencyId}`)
@@ -23,12 +36,13 @@ const getMarketData = async (
   cryptoIds: string[],
   vsCurrencyId: string,
 ): Promise<MarketData> => {
-  const data: MarketData = await fetch(`${baseURL}/coins/markets?vs_currency=${vsCurrencyId}&ids=${cryptoIds.join()}&sparkline=false`)
+  const data = await fetch(`${baseURL}/coins/markets?vs_currency=${vsCurrencyId}&ids=${cryptoIds.join()}&sparkline=false`)
     .then((response) => response.json());
 
   for (const cryptoData of data) {
-    cryptoData.price_change_percentage_24h = +percentageFormatter
-      .format(cryptoData.price_change_percentage_24h);
+    cryptoData.price_change_percentage_24h = (
+      percentageFormatter(cryptoData.price_change_percentage_24h)
+    );
   }
 
   return data;
@@ -56,13 +70,12 @@ const getMarketChart = async (
 const getPriceChangePercentage = async (
   cryptoId: string,
   vsCurrencyId: string,
-  priceChangePercentage: number,
-): Promise<number> => {
-  const data = await fetch(`${baseURL}/coins/markets?vs_currency=${vsCurrencyId}&ids=${cryptoId}&sparkline=false&price_change_percentage=${priceChangePercentage}d`)
+): Promise<string> => {
+  const data = await fetch(`${baseURL}/coins/markets?vs_currency=${vsCurrencyId}&ids=${cryptoId}&sparkline=false`)
     .then((response) => response.json())
-    .then((obj: any) => obj[0][`price_change_percentage_${priceChangePercentage}d_in_currency`]);
+    .then((obj: any) => obj[0].price_change_percentage_24h);
 
-  return +percentageFormatter.format(data);
+  return percentageFormatter(data);
 };
 
 const cryptoInfoService = {

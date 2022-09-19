@@ -9,9 +9,9 @@ type UserContextType = {
   cryptocurrency: Cryptocurrency
   setCryptocurrency: (newState: Cryptocurrency) => void
   cryptocurrencyPrice: number,
-  setCryptocurrencyPrice: (newState: number) => void
-  cryptocurrencyChangePercentage: number,
-  setCryptocurrencyChangePercentage: (newState: number) => void
+  setCryptocurrencyPrice: (newState: string) => void
+  cryptocurrencyChangePercentage: string,
+  setCryptocurrencyChangePercentage: (newState: string) => void
   prevDays: number
   setPrevDays: (newState: number) => void
   vsCurrency: VsCurrency
@@ -31,15 +31,15 @@ const defaultValue = {
   setCryptocurrency: () => {},
   cryptocurrencyPrice: 0,
   setCryptocurrencyPrice: () => {},
-  cryptocurrencyChangePercentage: 0,
+  cryptocurrencyChangePercentage: '0',
   setCryptocurrencyChangePercentage: () => {},
-  prevDays: 7,
+  prevDays: 1,
   setPrevDays: () => {},
   vsCurrency: vsCurrenciesList.find((vsCurrency) => vsCurrency.id === 'usd')!,
   setVsCurrency: () => {},
   popularCryptosData: [],
   setPopularCryptosData: () => {},
-  marketChartData: [],
+  marketChartData: [{ time: new Date(), price: 0 }],
   setMarketChartData: () => {},
 };
 
@@ -48,7 +48,7 @@ export const UserContext = React.createContext<UserContextType>(defaultValue);
 export const UserContextProvider = ({ children }: UserContextProps) => {
   const [cryptocurrency, setCryptocurrency] = useState<Cryptocurrency>(defaultValue.cryptocurrency);
   const [cryptocurrencyPrice, setCryptocurrencyPrice] = useState<number>(0);
-  const [cryptocurrencyChangePercentage, setCryptocurrencyChangePercentage] = useState<number>(0);
+  const [cryptocurrencyChangePercentage, setCryptocurrencyChangePercentage] = useState<string>(defaultValue.cryptocurrencyChangePercentage);
   const [prevDays, setPrevDays] = useState<number>(defaultValue.prevDays);
   const [vsCurrency, setVsCurrency] = useState<VsCurrency>(defaultValue.vsCurrency);
   const [
@@ -64,7 +64,6 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     cryptoInfoService.getPriceChangePercentage(
       cryptocurrency.id,
       vsCurrency.id,
-      prevDays,
     ).then((price) => setCryptocurrencyChangePercentage(price));
 
     const popularCryptosIds: string[] = [];
