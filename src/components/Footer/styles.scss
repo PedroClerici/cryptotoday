@@ -1,7 +1,28 @@
 @use 'src/styles/functions' as *;
 @use 'src/styles/mixins' as *;
 
-footer {
-  background-color: lightcoral;
-  grid-column: 1 / -1;
+.footer {
+  display: flex;
+  align-items: center;
+  border-top: solid 1px var(--surface-shade-color);
+  
+  @include breakpoint-up(large) {
+    position: relative;
+    grid-column: 1 / -1;
+    grid-row: 3 / -1;
+  }
+
+  &__description {
+    color: var(--surface-muted-color);
+
+    a {
+      font-size: inherit;
+      color: var(--surface-muted-color);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
 }

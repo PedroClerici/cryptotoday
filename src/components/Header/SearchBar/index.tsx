@@ -47,6 +47,7 @@ const SearchBar = ({ placeholder, data }: SearchBarProps) => {
   return (
     <div className="search-bar">
       <div
+        aria-hidden="true"
         className="search-bar__placeholder"
         onClick={() => {
           setIsActive(true);
@@ -72,6 +73,7 @@ const SearchBar = ({ placeholder, data }: SearchBarProps) => {
             onChange={filterHandler}
           />
           <div
+            aria-hidden="true"
             className="search-bar__close-icon"
             onClick={() => setIsActive(false)}
           >
@@ -82,9 +84,12 @@ const SearchBar = ({ placeholder, data }: SearchBarProps) => {
           <div className="search-bar__data-result">
             {filteredData.slice(0, 15).map((value) => (
               <div
+                aria-hidden="true"
                 className="search-bar__data-item"
                 onClick={() => {
-                  setCryptocurrency(cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === value.id))
+                  setCryptocurrency(
+                    cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === value.id)!,
+                  );
                   setIsActive(false);
                 }}
               >

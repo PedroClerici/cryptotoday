@@ -1,11 +1,11 @@
 import React from 'react';
 import './styles.scss';
 
-interface Props {
+interface GridProps {
   children: React.ReactNode,
 }
 
-const Grid: React.FC<Props> = ({ children }: Props) => (
+const Grid = ({ children }: GridProps) => (
   <div className="grid">
     {children}
   </div>

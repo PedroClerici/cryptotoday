@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Footer: React.FC<Props> = () => (
-  <footer>
+  <footer className="footer">
     Footer
   </footer>
 );

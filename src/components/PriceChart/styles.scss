@@ -2,11 +2,24 @@
 @use 'src/styles/mixins' as *;
 
 .price-chart {
-  position: relative;
   height: px-to-rem(318);
 
   @include breakpoint-up(large) {
-    height: 60%;
+    height: 68%
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: px-to-rem(7);
+  }
+
+  &__change-percentage {
+    font-size: px-to-rem(22);
+  }
+
+  &__price {
+    font-size: px-to-rem(30);
   }
 
   &__toolbar {
