@@ -7,7 +7,7 @@ import CryptoHeading from '../components/CryptoHeading';
 import PriceCalculator from '../components/PriceCalculator';
 import PriceChart from '../components/PriceChart';
 import PopularCryptos from '../components/PopularCryptos';
-import CryptoPriceData from '../components/CryptoPriceData';
+import CryptoPriceInfo from '../components/CryptoPriceInfo';
 
 const MobileLayout = (
   <Grid>
@@ -16,7 +16,7 @@ const MobileLayout = (
     <PriceCalculator />
     <PriceChart />
     <PopularCryptos />
-    <CryptoPriceData />
+    <CryptoPriceInfo />
     <Footer />
   </Grid>
 );

@@ -6,6 +6,7 @@
   height: px-to-rem(90);
   background-color: var(--surface-dim-color);
   padding: px-to-rem(14);
+  margin-block: px-to-rem(12);
   border-radius: px-to-rem(12);
 
   &__input-container {

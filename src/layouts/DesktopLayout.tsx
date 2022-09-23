@@ -7,7 +7,7 @@ import CryptoHeading from '../components/CryptoHeading';
 import PriceCalculator from '../components/PriceCalculator';
 import PriceChart from '../components/PriceChart';
 import PopularCryptos from '../components/PopularCryptos';
-import CryptoPriceData from '../components/CryptoPriceData';
+import CryptoPriceInfo from '../components/CryptoPriceInfo';
 
 const DesktopLayout = (
   <Grid>
@@ -15,7 +15,7 @@ const DesktopLayout = (
     <main>
       <CryptoHeading />
       <PriceChart />
-      <CryptoPriceData />
+      <CryptoPriceInfo />
     </main>
     <aside>
       <PriceCalculator />

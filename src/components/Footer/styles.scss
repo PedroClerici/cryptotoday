@@ -13,11 +13,11 @@
   }
 
   &__description {
-    color: var(--surface-muted-color);
+    color: var(--gray-color);
 
     a {
       font-size: inherit;
-      color: var(--surface-muted-color);
+      color: var(--gray-color);
 
       &:hover {
         text-decoration: underline;

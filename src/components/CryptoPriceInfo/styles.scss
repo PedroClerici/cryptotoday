@@ -1,0 +1,10 @@
+@use 'src/styles/functions' as *;
+@use 'src/styles/mixins' as *;
+
+.crypto-price-info {
+  margin-top: px-to-rem(20);
+
+  &__info {
+    color: var(--gray-color);
+  }
+}
