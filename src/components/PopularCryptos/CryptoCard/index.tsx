@@ -21,6 +21,7 @@ const CryptoCard = ({
   const { vsCurrency, setCryptocurrency } = useContext(UserContext);
   return (
     <div
+      aria-hidden="true"
       className="crypto-card"
       onClick={() => setCryptocurrency(cryptocurrenciesList
         .find((cryptocurrency) => cryptocurrency.name === cryptocurrencyName)!)}

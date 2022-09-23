@@ -2,12 +2,6 @@
 @use 'src/styles/mixins' as *;
 
 .price-chart {
-  height: px-to-rem(318);
-
-  @include breakpoint-up(large) {
-    height: 68%
-  }
-
   &__info {
     display: flex;
     align-items: center;
