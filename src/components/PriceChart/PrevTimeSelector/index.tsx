@@ -17,6 +17,7 @@ const PrevTimeSelector = () => {
     <ul className="prev-time-selector">
       {prevDaysItems.map((item) => (
         <li
+          key={item.value}
           className="prev-time-selector__value"
           role="option"
           aria-selected="true"

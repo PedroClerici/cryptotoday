@@ -48,8 +48,8 @@ const LineChart = () => {
 
     // Dimensions:
     const dimensions = {
-      width: width!,
-      height: height!,
+      width: width || 0,
+      height: height || 0,
       margins: {
         right: 50,
         left: 0,

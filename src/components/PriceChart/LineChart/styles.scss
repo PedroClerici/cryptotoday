@@ -2,7 +2,7 @@
 @use 'src/styles/mixins' as *;
 
 .line-chart {
-  max-height: 372px;
+  height: px-to-rem(372);
 }
 
 .tick {
