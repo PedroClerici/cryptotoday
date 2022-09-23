@@ -4,6 +4,14 @@ export type Price = {
   }
 }
 
+export type CryptoInfo = {
+  total_volume: string,
+  high_24h: string,
+  low_24h: string,
+  circulating_supply: string,
+  market_cap: string
+}
+
 export type MarketData = {
   'id': string,
   'symbol': string,

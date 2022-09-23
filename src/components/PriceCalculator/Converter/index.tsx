@@ -3,6 +3,7 @@
 /* eslint-disable global-require */
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../../context/userContext';
+import { priceFormatter } from '../../../services/cryptoInfoService';
 
 import './styles.scss';
 
@@ -35,7 +36,7 @@ const Converter = () => {
       <div className="total">
         Total
         <span>
-          {`${vsCurrency.id.toUpperCase()} ${vsCurrency.symbol}${(+input * cryptocurrencyPrice).toLocaleString('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}`}
+          {`${vsCurrency.id.toUpperCase()} ${vsCurrency.symbol}${priceFormatter(+input * +cryptocurrencyPrice.replace(',', ''))}`}
         </span>
       </div>
     </>

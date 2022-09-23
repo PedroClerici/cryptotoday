@@ -15,7 +15,7 @@ const PriceChart = () => {
     <div className="price-chart">
       <div className="price-chart__info">
         <p className="price-chart__price">
-          {`${vsCurrency.symbol}${cryptocurrencyPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+          {`${vsCurrency.symbol}${cryptocurrencyPrice}`}
         </p>
         <p
           className="price-chart__change-percentage"

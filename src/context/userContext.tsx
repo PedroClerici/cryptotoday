@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import type { MarketChart, MarketData } from '../types/cryptoInfoServiceTypes';
+/* eslint-disable no-unused-vars */
+import type { MarketChart, MarketData, CryptoInfo } from '../types/cryptoInfoServiceTypes';
 import { Cryptocurrency, cryptocurrenciesList } from '../currencies/cryptocurrencies';
 import { VsCurrency, vsCurrenciesList } from '../currencies/vsCurrencies';
 import cryptoInfoService from '../services/cryptoInfoService';
@@ -8,10 +8,12 @@ import cryptoInfoService from '../services/cryptoInfoService';
 type UserContextType = {
   cryptocurrency: Cryptocurrency
   setCryptocurrency: (newState: Cryptocurrency) => void
-  cryptocurrencyPrice: number,
-  setCryptocurrencyPrice: (newState: number) => void
+  cryptocurrencyPrice: string,
+  setCryptocurrencyPrice: (newState: string) => void
   cryptocurrencyChangePercentage: string,
   setCryptocurrencyChangePercentage: (newState: string) => void
+  cryptocurrencyInfo: CryptoInfo
+  setCryptocurrencyInfo: (newState: CryptoInfo) => void
   prevDays: number
   setPrevDays: (newState: number) => void
   vsCurrency: VsCurrency
@@ -29,10 +31,18 @@ type UserContextProps = {
 const defaultValue = {
   cryptocurrency: cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === 'bitcoin')!,
   setCryptocurrency: () => {},
-  cryptocurrencyPrice: 0,
+  cryptocurrencyPrice: '',
   setCryptocurrencyPrice: () => {},
-  cryptocurrencyChangePercentage: '0',
+  cryptocurrencyChangePercentage: '',
   setCryptocurrencyChangePercentage: () => {},
+  cryptocurrencyInfo: {
+    total_volume: '',
+    high_24h: '',
+    low_24h: '',
+    circulating_supply: '',
+    market_cap: '',
+  },
+  setCryptocurrencyInfo: () => {},
   prevDays: 1,
   setPrevDays: () => {},
   vsCurrency: vsCurrenciesList.find((vsCurrency) => vsCurrency.id === 'usd')!,
@@ -47,9 +57,9 @@ export const UserContext = React.createContext<UserContextType>(defaultValue);
 
 export const UserContextProvider = ({ children }: UserContextProps) => {
   const [cryptocurrency, setCryptocurrency] = useState<Cryptocurrency>(defaultValue.cryptocurrency);
-  const [cryptocurrencyPrice, setCryptocurrencyPrice] = useState<number>(0);
-  // eslint-disable-next-line
+  const [cryptocurrencyPrice, setCryptocurrencyPrice] = useState<string>(defaultValue.cryptocurrencyPrice);
   const [cryptocurrencyChangePercentage, setCryptocurrencyChangePercentage] = useState<string>(defaultValue.cryptocurrencyChangePercentage);
+  const [cryptocurrencyInfo, setCryptocurrencyInfo] = useState<CryptoInfo>(defaultValue.cryptocurrencyInfo);
   const [prevDays, setPrevDays] = useState<number>(defaultValue.prevDays);
   const [vsCurrency, setVsCurrency] = useState<VsCurrency>(defaultValue.vsCurrency);
   const [
@@ -66,6 +76,9 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
       cryptocurrency.id,
       vsCurrency.id,
     ).then((price) => setCryptocurrencyChangePercentage(price));
+
+    cryptoInfoService.getCryptoInfo(cryptocurrency.id, vsCurrency.id)
+      .then((info) => setCryptocurrencyInfo(info));
 
     const popularCryptosIds: string[] = [];
     for (const crypto of cryptocurrenciesList.slice(0, 6)) {
@@ -89,6 +102,8 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         setCryptocurrencyPrice,
         cryptocurrencyChangePercentage,
         setCryptocurrencyChangePercentage,
+        cryptocurrencyInfo,
+        setCryptocurrencyInfo,
         prevDays,
         setPrevDays,
         vsCurrency,
