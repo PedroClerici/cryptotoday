@@ -2,11 +2,7 @@
 @use 'src/styles/mixins' as *;
 
 .line-chart {
-  height: 85%;
-
-  @include breakpoint-up(large) {
-    height: 95%;
-  }
+  max-height: 372px;
 }
 
 .tick {

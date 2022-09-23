@@ -9,7 +9,7 @@ type UserContextType = {
   cryptocurrency: Cryptocurrency
   setCryptocurrency: (newState: Cryptocurrency) => void
   cryptocurrencyPrice: number,
-  setCryptocurrencyPrice: (newState: string) => void
+  setCryptocurrencyPrice: (newState: number) => void
   cryptocurrencyChangePercentage: string,
   setCryptocurrencyChangePercentage: (newState: string) => void
   prevDays: number
@@ -48,6 +48,7 @@ export const UserContext = React.createContext<UserContextType>(defaultValue);
 export const UserContextProvider = ({ children }: UserContextProps) => {
   const [cryptocurrency, setCryptocurrency] = useState<Cryptocurrency>(defaultValue.cryptocurrency);
   const [cryptocurrencyPrice, setCryptocurrencyPrice] = useState<number>(0);
+  // eslint-disable-next-line
   const [cryptocurrencyChangePercentage, setCryptocurrencyChangePercentage] = useState<string>(defaultValue.cryptocurrencyChangePercentage);
   const [prevDays, setPrevDays] = useState<number>(defaultValue.prevDays);
   const [vsCurrency, setVsCurrency] = useState<VsCurrency>(defaultValue.vsCurrency);
