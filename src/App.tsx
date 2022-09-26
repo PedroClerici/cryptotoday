@@ -1,19 +1,16 @@
-import React from 'react';
+import { useContext } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { UserContextProvider } from './context/userContext';
-
+import { UserContext } from './context/userContext';
 import DesktopLayout from './layouts/DesktopLayout';
 import MobileLayout from './layouts/MobileLayout';
 
 const App = () => {
   // The query should match the computed value in 'src/styles/_mixins.scss' line 7.
-  const isDesktop = useMediaQuery({ query: '(min-width: 50rem)' });
+  const { setIsMobile, isMobile } = useContext(UserContext);
 
-  return (
-    <UserContextProvider>
-      {isDesktop ? DesktopLayout : MobileLayout}
-    </UserContextProvider>
-  );
+  setIsMobile(!useMediaQuery({ query: '(min-width: 50rem)' }));
+
+  return (isMobile ? MobileLayout : DesktopLayout);
 };
 
 export default App;

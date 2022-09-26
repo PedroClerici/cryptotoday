@@ -4,9 +4,15 @@
 .line-chart {
   height: px-to-rem(287);
 
+  // Weird resizing bug????:
+  width: 99%;
+  justify-self: center;
+
   @include breakpoint-up(large) {
     height: px-to-rem(372);
+    width: 100%;
   }
+
 }
 
 .tick {

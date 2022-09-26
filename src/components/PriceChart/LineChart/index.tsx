@@ -15,7 +15,7 @@ const LineChart = () => {
   const svgRef = useRef<SVGSVGElement>(null);
   const svgContainer = useRef<HTMLDivElement>(null);
 
-  const { marketChartData, prevDays } = useContext(UserContext);
+  const { marketChartData, prevDays, isMobile } = useContext(UserContext);
 
   const [width, setWidth] = useState<number>();
   const [height, setHeight] = useState<number>();
@@ -70,27 +70,27 @@ const LineChart = () => {
     switch (prevDays) {
       case 1:
         parseDate = null;
-        ticksTime = null;
+        ticksTime = isMobile ? 3 : null;
         break;
       case 7:
         parseDate = d3.timeFormat('%b/%d');
-        ticksTime = d3.timeDay.every(1);
+        ticksTime = isMobile ? d3.timeDay.every(2) : d3.timeDay.every(1);
         break;
       case 14:
         parseDate = d3.timeFormat('%b/%d');
-        ticksTime = d3.timeDay.every(2);
+        ticksTime = isMobile ? d3.timeDay.every(5) : d3.timeDay.every(2);
         break;
       case 30:
         parseDate = d3.timeFormat('%b/%d');
-        ticksTime = d3.timeDay.every(4);
+        ticksTime = isMobile ? d3.timeWeek.every(2) : d3.timeDay.every(4);
         break;
       case 90:
         parseDate = d3.timeFormat('%b/%d');
-        ticksTime = d3.timeDay.every(11);
+        ticksTime = isMobile ? d3.timeMonth.every(1) : d3.timeDay.every(11);
         break;
       case 365:
         parseDate = d3.timeFormat('%b/%Y');
-        ticksTime = d3.timeMonth.every(2);
+        ticksTime = isMobile ? d3.timeMonth.every(4) : d3.timeMonth.every(2);
         break;
       default:
         break;
@@ -165,7 +165,7 @@ const LineChart = () => {
       .attr('d', lineGenerator(marketChartData));
 
     getSvgContainerSize();
-  }, [marketChartData, width, height]);
+  }, [marketChartData, width, height, isMobile]);
 
   return (
     <div ref={svgContainer} className="line-chart">

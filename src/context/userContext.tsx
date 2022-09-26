@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import type { MarketChart, MarketData, CryptoInfo } from '../types/cryptoInfoServiceTypes';
 import { Cryptocurrency, cryptocurrenciesList } from '../currencies/cryptocurrencies';
 import { VsCurrency, vsCurrenciesList } from '../currencies/vsCurrencies';
 import cryptoInfoService from '../services/cryptoInfoService';
 
 type UserContextType = {
+  isMobile: boolean
+  setIsMobile: (newState: boolean) => void
   cryptocurrency: Cryptocurrency
   setCryptocurrency: (newState: Cryptocurrency) => void
   cryptocurrencyPrice: string,
@@ -29,6 +32,8 @@ type UserContextProps = {
 }
 
 const defaultValue = {
+  isMobile: false,
+  setIsMobile: () => {},
   cryptocurrency: cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === 'bitcoin')!,
   setCryptocurrency: () => {},
   cryptocurrencyPrice: '',
@@ -56,6 +61,7 @@ const defaultValue = {
 export const UserContext = React.createContext<UserContextType>(defaultValue);
 
 export const UserContextProvider = ({ children }: UserContextProps) => {
+  const [isMobile, setIsMobile] = useState<boolean>(defaultValue.isMobile);
   const [cryptocurrency, setCryptocurrency] = useState<Cryptocurrency>(defaultValue.cryptocurrency);
   const [cryptocurrencyPrice, setCryptocurrencyPrice] = useState<string>(defaultValue.cryptocurrencyPrice);
   const [cryptocurrencyChangePercentage, setCryptocurrencyChangePercentage] = useState<string>(defaultValue.cryptocurrencyChangePercentage);
@@ -96,6 +102,8 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     <UserContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
+        isMobile,
+        setIsMobile,
         cryptocurrency,
         setCryptocurrency,
         cryptocurrencyPrice,
