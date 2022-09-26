@@ -2,7 +2,11 @@
 @use 'src/styles/mixins' as *;
 
 .line-chart {
-  height: px-to-rem(372);
+  height: px-to-rem(287);
+
+  @include breakpoint-up(large) {
+    height: px-to-rem(372);
+  }
 }
 
 .tick {

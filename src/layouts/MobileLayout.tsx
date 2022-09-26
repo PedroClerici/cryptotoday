@@ -15,8 +15,8 @@ const MobileLayout = (
     <CryptoHeading />
     <PriceCalculator />
     <PriceChart />
-    <PopularCryptos />
     <CryptoPriceInfo />
+    <PopularCryptos />
     <Footer />
   </Grid>
 );

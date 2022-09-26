@@ -56,7 +56,7 @@ const SearchBar = ({ placeholder, data }: SearchBarProps) => {
         <div className="search-bar__search-icon">
           <img src={searchIcon} alt="search-icon" />
         </div>
-        <p>{placeholder}</p>
+        <p className="search-bar__placeholder-text">{placeholder}</p>
       </div>
       <div
         className="search-bar__popup"

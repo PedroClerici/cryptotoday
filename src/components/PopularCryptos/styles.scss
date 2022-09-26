@@ -2,6 +2,8 @@
 @use 'src/styles/mixins' as *;
 
 .popular-cryptos {
+  margin-bottom: px-to-rem(20);
+
   &__card {
     display: flex;
     align-items: center;

@@ -1,8 +1,9 @@
 @use '../../styles/functions' as *;
+@use 'src/styles/mixins' as *;
 
 .crypto-heading {
   display: flex;
-  margin-bottom: px-to-rem(20);
+  margin-block: px-to-rem(20);
   align-items: center;
   gap: px-to-rem(10);
 
@@ -12,5 +13,9 @@
 
   &__currency-name {
     margin-bottom: 0;
+  }
+
+  @include breakpoint-up(large) {
+    margin-top: 0;
   }
 }

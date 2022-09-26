@@ -9,22 +9,33 @@
   
   margin-left: auto;
 
+  @include breakpoint-down(medium) {
+    &__placeholder-text {
+      display: none;
+    }
+
+    img {
+      height: px-to-rem(20);
+    }
+  }
+
   @include breakpoint-up(large) {
     position: relative;
+
+    &__placeholder {
+      display: flex;
+      padding: $padding;
+      border-radius: $radius;
+      gap: $gap;
+      color: var(--surface-muted-color);
+      background-color: var(--surface-dim-color);
+    }
+
+    img {
+      height: px-to-rem(15);
+    }
   }
 
-  &__placeholder {
-    display: flex;
-    padding: $padding;
-    border-radius: $radius;
-    gap: $gap;
-    color: var(--surface-muted-color);
-    background-color: var(--surface-dim-color);
-  }
-
-  img {
-    height: px-to-rem(15);
-  }
 
   &__popup {
     position: absolute;

@@ -4,14 +4,18 @@
 .header {
   display: flex;
   align-items: center;
-  height: px-to-rem(72);
+  height: px-to-rem(60);
 
   grid-column: 1 / -1;
+
+  &__logo {
+    width: px-to-rem(150);
+  }
 
   // Creating the bottom border:
   &::after {
     position:absolute;
-    top: px-to-rem(72);
+    top: px-to-rem(60);
     left: 0;
     background: var(--surface-shade-color);
     width:100vw;
@@ -19,7 +23,15 @@
     content:"";
   }
 
-  &__logo {
-    width: px-to-rem(180);
+  @include breakpoint-up(large) {
+    height: px-to-rem(72);
+
+    &::after {
+      top: px-to-rem(72);
+    }
+
+    &__logo {
+      width: px-to-rem(180);
+    }
   }
 }

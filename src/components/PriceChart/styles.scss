@@ -9,15 +9,15 @@
   }
 
   &__change-percentage {
-    font-size: px-to-rem(22);
+    font-size: px-to-rem(18);
   }
 
   &__price {
-    font-size: px-to-rem(30);
+    font-size: px-to-rem(24);
   }
 
   &__toolbar {
-    margin-top: px-to-rem(20);
+    margin-top: px-to-rem(12);
     margin-bottom: px-to-rem(5);
     display: flex;
   }
@@ -25,5 +25,19 @@
   &__vs-currency {
     margin-left: auto;
     padding-right: px-to-rem(8);
+  }
+
+  @include breakpoint-up(large) {
+    &__change-percentage {
+      font-size: px-to-rem(22);
+    }
+
+    &__price {
+      font-size: px-to-rem(30);
+    }
+
+    &__toolbar {
+      margin-top: px-to-rem(20);
+    }
   }
 }

@@ -3,25 +3,35 @@
 
 .footer {
   display: flex;
+  justify-content: center;
   align-items: center;
+  height: px-to-rem(90);
   border-top: solid 1px var(--surface-shade-color);
   
-  @include breakpoint-up(large) {
-    position: relative;
-    grid-column: 1 / -1;
-    grid-row: 3 / -1;
-  }
-
+  
   &__description {
     color: var(--gray-color);
-
+    text-align: center;
+    
     a {
       font-size: inherit;
       color: var(--gray-color);
-
+      
       &:hover {
         text-decoration: underline;
       }
+    }
+  }
+
+  @include breakpoint-up(large) {
+    height: auto;
+    position: relative;
+    grid-column: 1 / -1;
+    grid-row: 3 / -1;
+    justify-content: flex-start;
+
+    &__description {
+      text-align: left;
     }
   }
 }
