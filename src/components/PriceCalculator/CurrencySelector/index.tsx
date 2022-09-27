@@ -1,4 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, {
+  useContext,
+  useState,
+  useRef,
+  useEffect,
+} from 'react';
 import arrow from '../../../assets/arrow.svg';
 import { UserContext } from '../../../context/userContext';
 import { vsCurrenciesList } from '../../../currencies/vsCurrencies';
@@ -9,8 +14,23 @@ const CurrencySelector = () => {
   const [isActive, setIsActive] = useState(false);
   const { vsCurrency, setVsCurrency } = useContext(UserContext);
 
+  const currencySelectorRef = useRef<HTMLDivElement>(null);
+
+  // Close options if user clicks outside of the selector:
+  useEffect(() => {
+    const closePopup = (event: any) => {
+      if (!currencySelectorRef.current?.contains(event.target)) {
+        setIsActive(false);
+      }
+    };
+
+    document.body.addEventListener('click', closePopup);
+    return () => document.body.removeEventListener('click', closePopup);
+  }, []);
+
   return (
     <div
+      ref={currencySelectorRef}
       className="currency-selector"
     >
       <div

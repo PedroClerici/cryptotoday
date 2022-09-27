@@ -5,6 +5,8 @@
   display: flex;
   align-items: center;
   height: px-to-rem(60);
+  border-bottom: solid 1px var(--surface-shade-color);
+  padding-inline: px-to-rem(10);
 
   grid-column: 1 / -1;
 
@@ -12,19 +14,21 @@
     width: px-to-rem(150);
   }
 
-  // Creating the bottom border:
-  &::after {
-    position:absolute;
-    top: px-to-rem(60);
-    left: 0;
-    background: var(--surface-shade-color);
-    width:100vw;
-    height: 1px;
-    content:"";
-  }
-
+  
   @include breakpoint-up(large) {
     height: px-to-rem(72);
+    border-bottom: none;
+
+    // Creating the bottom border:
+    &::after {
+      position: absolute;
+      top: px-to-rem(72);
+      left: 0;
+      background: var(--surface-shade-color);
+      width:100vw;
+      height: 1px;
+      content:"";
+    }
 
     &::after {
       top: px-to-rem(72);

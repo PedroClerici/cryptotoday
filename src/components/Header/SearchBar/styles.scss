@@ -2,18 +2,18 @@
 @use 'src/styles/mixins' as *;
 
 .search-bar {
-  $padding: px-to-rem(10);
+  $padding: px-to-rem(12);
   $radius: px-to-rem(10);
   $gap: px-to-rem(8);
   $icon-size: px-to-rem(15);
   
   margin-left: auto;
 
-  @include breakpoint-down(medium) {
-    &__placeholder-text {
-      display: none;
-    }
+  &__placeholder-text {
+    display: none;
+  }
 
+  @include breakpoint-down(small) {
     img {
       height: px-to-rem(20);
     }
@@ -21,6 +21,10 @@
 
   @include breakpoint-up(large) {
     position: relative;
+
+    &__placeholder-text {
+      display: block;
+    }
 
     &__placeholder {
       display: flex;
@@ -48,7 +52,7 @@
     box-shadow: 0 0 4px rgba($color: #000000, $alpha: 0.1);
 
     @include breakpoint-down(medium) {
-      width: 100vw;
+      width: 100%;
       height: 100vh;
     }
 

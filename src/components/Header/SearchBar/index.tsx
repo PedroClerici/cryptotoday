@@ -18,16 +18,36 @@ type SearchBarProps = {
 }
 
 const SearchBar = ({ placeholder, data }: SearchBarProps) => {
-  const { setCryptocurrency } = useContext(UserContext);
+  const { setCryptocurrency, isMobile } = useContext(UserContext);
 
   const [filteredData, setFilteredData] = useState<Cryptocurrency[]>([]);
   const [isActive, setIsActive] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const searchBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     inputRef.current!.focus();
   }, [isActive]);
+
+  // Closing popup if user clicks outside of the search bar:
+  useEffect(() => {
+    const closePopup = (event: any) => {
+      if (!searchBarRef.current?.contains(event.target)) {
+        setIsActive(false);
+      }
+    };
+
+    document.body.addEventListener('click', closePopup);
+    return () => document.body.removeEventListener('click', closePopup);
+  }, []);
+
+  // Lock scrolling if search bar is active:
+  if (isActive && isMobile) {
+    document.querySelector('body')!.style.overflowY = 'hidden';
+  } else {
+    document.querySelector('body')!.style.overflowY = 'auto';
+  }
 
   const filterHandler = (event: any) => {
     const searchValue = event.target.value;
@@ -45,7 +65,7 @@ const SearchBar = ({ placeholder, data }: SearchBarProps) => {
   };
 
   return (
-    <div className="search-bar">
+    <div ref={searchBarRef} className="search-bar">
       <div
         aria-hidden="true"
         className="search-bar__placeholder"
