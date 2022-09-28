@@ -11,6 +11,15 @@ import { TimeInterval } from 'd3';
 import { UserContext } from '../../../context/userContext';
 import './styles.scss';
 
+const formatter = d3.format('~s');
+const amountFormat = (amount: number) => {
+  if (amount > 1) {
+    return formatter(amount);
+  }
+
+  return amount.toFixed(3);
+};
+
 const LineChart = () => {
   const svgRef = useRef<SVGSVGElement>(null);
   const svgContainer = useRef<HTMLDivElement>(null);
@@ -129,7 +138,8 @@ const LineChart = () => {
       .tickSize(0)
       .tickSizeInner(-dimensions.containerWidth)
       .tickPadding(dimensions.margins.right / 2)
-      .tickArguments([6, 's']);
+      .tickFormat(amountFormat)
+      .ticks(6);
 
     container
       .append('g')
