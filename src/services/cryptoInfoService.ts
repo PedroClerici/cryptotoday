@@ -1,5 +1,4 @@
 import type {
-  Price,
   MarketData,
   MarketChart,
   CryptoInfo,
@@ -13,11 +12,12 @@ export const priceFormatter = (price: number) => price.toLocaleString('en-US', {
 });
 
 export const amountFormatter = (amount: number) => {
-  const units = ['M', 'B', 'T', 'Q'];
+  const units = ['K', 'M', 'B', 'T', 'Q'];
   const unit = Math.floor((amount / 1.0e+1).toFixed(0).toString().length);
   const r = unit % 3;
   const x = Math.abs(amount) / +`1.0e+${unit - r}`;
-  return x.toFixed(2) + units[Math.floor(unit / 3) - 2];
+
+  return x.toFixed(1) + units[Math.floor(unit / 3) - 1];
 };
 
 const formatter = new Intl.NumberFormat('en-US', {
@@ -35,15 +35,7 @@ export const percentageFormatter = (percentage: number) => {
     formattedPercentage = `+${formattedPercentage}`;
   }
 
-  return formattedPercentage;
-};
-
-const getPrice = async (cryptoId: string, vsCurrencyId: string): Promise<string> => {
-  const data = await fetch(`${baseURL}/simple/price?ids=${cryptoId}&vs_currencies=${vsCurrencyId}`)
-    .then((response) => response.json())
-    .then((obj: Price) => obj[cryptoId][vsCurrencyId]);
-
-  return priceFormatter(data);
+  return `${formattedPercentage}%`;
 };
 
 const getCryptoInfo = async (cryptoId: string, vsCurrencyId: string): Promise<CryptoInfo> => {
@@ -51,6 +43,8 @@ const getCryptoInfo = async (cryptoId: string, vsCurrencyId: string): Promise<Cr
     .then((response) => response.json())
     .then((obj: [CryptoInfo]) => obj[0]);
 
+  data.current_price = priceFormatter(+data.current_price);
+  data.price_change_percentage_24h = percentageFormatter(+data.price_change_percentage_24h);
   data.circulating_supply = amountFormatter(+data.circulating_supply);
   data.high_24h = priceFormatter(+data.high_24h);
   data.low_24h = priceFormatter(+data.low_24h);
@@ -96,24 +90,10 @@ const getMarketChart = async (
   return parsedData;
 };
 
-// TODO: Refactor priceChangePercentage handling: 1h | 24h | 7d | 14d | 30d | 1y
-const getPriceChangePercentage = async (
-  cryptoId: string,
-  vsCurrencyId: string,
-): Promise<string> => {
-  const data = await fetch(`${baseURL}/coins/markets?vs_currency=${vsCurrencyId}&ids=${cryptoId}&sparkline=false`)
-    .then((response) => response.json())
-    .then((obj: any) => obj[0].price_change_percentage_24h);
-
-  return percentageFormatter(data);
-};
-
 const cryptoInfoService = {
-  getPrice,
   getCryptoInfo,
   getMarketData,
   getMarketChart,
-  getPriceChangePercentage,
 };
 
 export default cryptoInfoService;

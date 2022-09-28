@@ -2,21 +2,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import type { MarketChart, MarketData, CryptoInfo } from '../types/cryptoInfoServiceTypes';
-import { Cryptocurrency, cryptocurrenciesList } from '../currencies/cryptocurrencies';
+import { cryptocurrenciesList } from '../currencies/cryptocurrencies';
 import { VsCurrency, vsCurrenciesList } from '../currencies/vsCurrencies';
 import cryptoInfoService from '../services/cryptoInfoService';
 
 type UserContextType = {
   isMobile: boolean
   setIsMobile: (newState: boolean) => void
-  cryptocurrency: Cryptocurrency
-  setCryptocurrency: (newState: Cryptocurrency) => void
-  cryptocurrencyPrice: string,
-  setCryptocurrencyPrice: (newState: string) => void
-  cryptocurrencyChangePercentage: string,
-  setCryptocurrencyChangePercentage: (newState: string) => void
-  cryptocurrencyInfo: CryptoInfo
-  setCryptocurrencyInfo: (newState: CryptoInfo) => void
+  cryptocurrency: CryptoInfo
+  setCryptocurrency: (newState: CryptoInfo) => void
   prevDays: number
   setPrevDays: (newState: number) => void
   vsCurrency: VsCurrency
@@ -34,20 +28,19 @@ type UserContextProps = {
 const defaultValue = {
   isMobile: false,
   setIsMobile: () => {},
-  cryptocurrency: cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === 'bitcoin')!,
-  setCryptocurrency: () => {},
-  cryptocurrencyPrice: '',
-  setCryptocurrencyPrice: () => {},
-  cryptocurrencyChangePercentage: '',
-  setCryptocurrencyChangePercentage: () => {},
-  cryptocurrencyInfo: {
+  cryptocurrency: {
+    id: '',
+    symbol: 'btc',
+    name: '',
+    current_price: '',
+    price_change_percentage_24h: '',
     total_volume: '',
     high_24h: '',
     low_24h: '',
     circulating_supply: '',
     market_cap: '',
   },
-  setCryptocurrencyInfo: () => {},
+  setCryptocurrency: () => {},
   prevDays: 1,
   setPrevDays: () => {},
   vsCurrency: vsCurrenciesList.find((vsCurrency) => vsCurrency.id === 'usd')!,
@@ -62,10 +55,7 @@ export const UserContext = React.createContext<UserContextType>(defaultValue);
 
 export const UserContextProvider = ({ children }: UserContextProps) => {
   const [isMobile, setIsMobile] = useState<boolean>(defaultValue.isMobile);
-  const [cryptocurrency, setCryptocurrency] = useState<Cryptocurrency>(defaultValue.cryptocurrency);
-  const [cryptocurrencyPrice, setCryptocurrencyPrice] = useState<string>(defaultValue.cryptocurrencyPrice);
-  const [cryptocurrencyChangePercentage, setCryptocurrencyChangePercentage] = useState<string>(defaultValue.cryptocurrencyChangePercentage);
-  const [cryptocurrencyInfo, setCryptocurrencyInfo] = useState<CryptoInfo>(defaultValue.cryptocurrencyInfo);
+  const [cryptocurrency, setCryptocurrency] = useState<CryptoInfo>(defaultValue.cryptocurrency);
   const [prevDays, setPrevDays] = useState<number>(defaultValue.prevDays);
   const [vsCurrency, setVsCurrency] = useState<VsCurrency>(defaultValue.vsCurrency);
   const [
@@ -75,17 +65,11 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
   const [marketChartData, setMarketChartData] = useState<MarketChart>(defaultValue.marketChartData);
 
   useEffect(() => {
-    cryptoInfoService.getPrice(cryptocurrency.id, vsCurrency.id)
-      .then((price) => setCryptocurrencyPrice(price));
-
-    cryptoInfoService.getPriceChangePercentage(
-      cryptocurrency.id,
-      vsCurrency.id,
-    ).then((price) => setCryptocurrencyChangePercentage(price));
-
     cryptoInfoService.getCryptoInfo(cryptocurrency.id, vsCurrency.id)
-      .then((info) => setCryptocurrencyInfo(info));
+      .then((data) => setCryptocurrency(data));
+  }, [vsCurrency]);
 
+  useEffect(() => {
     const popularCryptosIds: string[] = [];
     for (const crypto of cryptocurrenciesList.slice(0, 6)) {
       popularCryptosIds.push(crypto.id);
@@ -106,12 +90,6 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
         setIsMobile,
         cryptocurrency,
         setCryptocurrency,
-        cryptocurrencyPrice,
-        setCryptocurrencyPrice,
-        cryptocurrencyChangePercentage,
-        setCryptocurrencyChangePercentage,
-        cryptocurrencyInfo,
-        setCryptocurrencyInfo,
         prevDays,
         setPrevDays,
         vsCurrency,

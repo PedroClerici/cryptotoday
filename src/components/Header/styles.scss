@@ -18,6 +18,7 @@
   @include breakpoint-up(large) {
     height: px-to-rem(72);
     border-bottom: none;
+    padding-inline: 0;
 
     // Creating the bottom border:
     &::after {

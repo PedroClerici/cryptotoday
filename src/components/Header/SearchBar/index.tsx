@@ -11,6 +11,7 @@ import searchIcon from '../../../assets/search.svg';
 import closeIcon from '../../../assets/close.svg';
 import './styles.scss';
 import { UserContext } from '../../../context/userContext';
+import cryptoInfoService from '../../../services/cryptoInfoService';
 
 type SearchBarProps = {
   placeholder: string,
@@ -18,7 +19,7 @@ type SearchBarProps = {
 }
 
 const SearchBar = ({ placeholder, data }: SearchBarProps) => {
-  const { setCryptocurrency, isMobile } = useContext(UserContext);
+  const { setCryptocurrency, vsCurrency, isMobile } = useContext(UserContext);
 
   const [filteredData, setFilteredData] = useState<Cryptocurrency[]>([]);
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -104,12 +105,12 @@ const SearchBar = ({ placeholder, data }: SearchBarProps) => {
           <div className="search-bar__data-result">
             {filteredData.slice(0, 15).map((value) => (
               <div
+                key={value.symbol}
                 aria-hidden="true"
                 className="search-bar__data-item"
                 onClick={() => {
-                  setCryptocurrency(
-                    cryptocurrenciesList.find((cryptocurrency) => cryptocurrency.id === value.id)!,
-                  );
+                  cryptoInfoService.getCryptoInfo(value.id, vsCurrency.id)
+                    .then((d) => setCryptocurrency(d));
                   setIsActive(false);
                 }}
               >

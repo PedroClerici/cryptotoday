@@ -8,7 +8,7 @@ import { priceFormatter } from '../../../services/cryptoInfoService';
 import './styles.scss';
 
 const Converter = () => {
-  const { cryptocurrency, cryptocurrencyPrice, vsCurrency } = useContext(UserContext);
+  const { cryptocurrency, vsCurrency } = useContext(UserContext);
   const [input, setInput] = useState<string>('');
 
   return (
@@ -36,7 +36,7 @@ const Converter = () => {
       <div className="total">
         Total
         <span>
-          {`${vsCurrency.id.toUpperCase()} ${vsCurrency.symbol}${priceFormatter(+input * +cryptocurrencyPrice.replace(',', ''))}`}
+          {`${vsCurrency.id.toUpperCase()} ${vsCurrency.symbol} ${priceFormatter(+input * +cryptocurrency.current_price.replace(',', ''))}`}
         </span>
       </div>
     </>

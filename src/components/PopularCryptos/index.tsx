@@ -14,6 +14,7 @@ const PopularCryptos = () => {
       {popularCryptosData.map((cryptocurrency) => (
         <CryptoCard
           key={cryptocurrency.symbol}
+          cryptocurrencyId={cryptocurrency.id}
           cryptocurrencyName={cryptocurrency.name}
           cryptocurrencySymbol={cryptocurrency.symbol}
           cryptocurrencyPrice={cryptocurrency.current_price}

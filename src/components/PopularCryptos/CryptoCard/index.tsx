@@ -1,18 +1,20 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 import React, { useContext } from 'react';
-import cryptocurrenciesList from '../../../currencies/cryptocurrencies';
+import cryptoInfoService from '../../../services/cryptoInfoService';
 import { UserContext } from '../../../context/userContext';
 import './styles.scss';
 
 type CryptoCardProps = {
+  cryptocurrencyId: string
   cryptocurrencyName: string
   cryptocurrencySymbol: string
-  cryptocurrencyPrice: number
+  cryptocurrencyPrice: string
   cryptocurrencyChangePercentage: string
 }
 
 const CryptoCard = ({
+  cryptocurrencyId,
   cryptocurrencyName,
   cryptocurrencySymbol,
   cryptocurrencyPrice,
@@ -23,8 +25,10 @@ const CryptoCard = ({
     <div
       aria-hidden="true"
       className="crypto-card"
-      onClick={() => setCryptocurrency(cryptocurrenciesList
-        .find((cryptocurrency) => cryptocurrency.name === cryptocurrencyName)!)}
+      onClick={() => {
+        cryptoInfoService.getCryptoInfo(cryptocurrencyId, vsCurrency.id)
+          .then((data) => setCryptocurrency(data));
+      }}
     >
       <img
         className="crypto-card__icon"
@@ -37,13 +41,13 @@ const CryptoCard = ({
       </div>
       <div className="crypto-card__price">
         <p className="crypto-card__name">
-          {`${vsCurrency.symbol} ${cryptocurrencyPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+          {`${vsCurrency.symbol} ${cryptocurrencyPrice}`}
         </p>
         <p
           className="crypto-card__change-percentage"
-          style={+cryptocurrencyChangePercentage > 0 ? { color: 'var(--green-color)' } : { color: 'var(--red-color)' }}
+          style={+cryptocurrencyChangePercentage.replace('%', '') > 0 ? { color: 'var(--green-color)' } : { color: 'var(--red-color)' }}
         >
-          {`${cryptocurrencyChangePercentage}%`}
+          {cryptocurrencyChangePercentage}
         </p>
       </div>
     </div>

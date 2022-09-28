@@ -1,10 +1,9 @@
-export type Price = {
-  [cryptocurrency: string]: {
-    [vsCurrency: string]: number
-  }
-}
-
 export type CryptoInfo = {
+  id: string,
+  symbol: string,
+  name: string,
+  current_price: string,
+  price_change_percentage_24h: string,
   total_volume: string,
   high_24h: string,
   low_24h: string,
@@ -12,15 +11,7 @@ export type CryptoInfo = {
   market_cap: string
 }
 
-export type MarketData = {
-  'id': string,
-  'symbol': string,
-  'name': string,
-  'current_price': number,
-  'market_cap': number,
-  'circulating_supply': number,
-  'price_change_percentage_24h': string,
-}[]
+export type MarketData = CryptoInfo[]
 
 export type MarketChart = {
   time: Date, price: number
