@@ -65,6 +65,51 @@ export const cryptocurrenciesList: Cryptocurrency[] = [
     symbol: 'xlm',
     name: 'Stellar',
   },
+  {
+    id: 'cardano',
+    symbol: 'ada',
+    name: 'Cardano',
+  },
+  {
+    id: 'dogecoin',
+    symbol: 'doge',
+    name: 'Dogecoin',
+  },
+  {
+    id: 'avalanche-2',
+    symbol: 'avax',
+    name: 'Avalanche',
+  },
+  {
+    id: 'wrapped-bitcoin',
+    symbol: 'wbtc',
+    name: 'Wrapped Bitcoin',
+  },
+  {
+    id: 'ethereum-classic',
+    symbol: 'etc',
+    name: 'Ethereum Classic',
+  },
+  {
+    id: 'cosmos',
+    symbol: 'atom',
+    name: 'Cosmos',
+  },
+  {
+    id: 'leo',
+    symbol: 'leo',
+    name: 'Leo',
+  },
+  {
+    id: 'uniswap',
+    symbol: 'uni',
+    name: 'Uniswap',
+  },
+  {
+    id: 'chainlink',
+    symbol: 'link',
+    name: 'Chainlink',
+  },
 ];
 
 export default cryptocurrenciesList;
