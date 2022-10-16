@@ -9,7 +9,13 @@ import './styles.scss';
 
 const Converter = () => {
   const { cryptocurrency, vsCurrency } = useContext(UserContext);
-  const [input, setInput] = useState<string>('');
+  const [input, setInput] = useState<string>('2');
+
+  const inputChangeHandler = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    if (Number.isNaN(+target.value) || +target.value > 10e10) return;
+
+    setInput(target.value);
+  };
 
   return (
     <>
@@ -21,7 +27,7 @@ const Converter = () => {
             className="converter__input"
             placeholder="0.00"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={inputChangeHandler}
           />
           <div className="converter__cryptocurrency-tag">
             <img
