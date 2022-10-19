@@ -11,7 +11,7 @@ const PriceChart = () => {
     <div className="price-chart">
       <div className="price-chart__info">
         <p className="price-chart__price">
-          {`${vsCurrency.symbol} ${cryptocurrency.current_price}`}
+          {`${vsCurrency.symbol}${cryptocurrency.current_price}`}
         </p>
         <p
           className="price-chart__change-percentage"

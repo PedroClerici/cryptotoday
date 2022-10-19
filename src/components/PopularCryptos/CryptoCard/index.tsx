@@ -41,7 +41,7 @@ const CryptoCard = ({
       </div>
       <div className="crypto-card__price">
         <p className="crypto-card__name">
-          {`${vsCurrency.symbol} ${cryptocurrencyPrice}`}
+          {`${vsCurrency.symbol}${cryptocurrencyPrice}`}
         </p>
         <p
           className="crypto-card__change-percentage"

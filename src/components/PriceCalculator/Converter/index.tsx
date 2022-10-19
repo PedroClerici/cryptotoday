@@ -42,7 +42,7 @@ const Converter = () => {
       <div className="total">
         Total
         <span>
-          {`${vsCurrency.id.toUpperCase()} ${vsCurrency.symbol} ${priceFormatter(+input * +cryptocurrency.current_price.replace(',', ''))}`}
+          {`${vsCurrency.id.toUpperCase()} ${vsCurrency.symbol}${priceFormatter(+input * +cryptocurrency.current_price.replace(',', ''))}`}
         </span>
       </div>
     </>
