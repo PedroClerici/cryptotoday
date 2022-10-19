@@ -49,6 +49,7 @@ const LineChart = () => {
   }, []);
 
   useEffect(() => {
+    if (!marketChartData) return;
     // D3 code:
 
     // Value accessors:
@@ -176,6 +177,10 @@ const LineChart = () => {
 
     getSvgContainerSize();
   }, [marketChartData, width, height, isMobile]);
+
+  if (!marketChartData) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <div ref={svgContainer} className="line-chart">

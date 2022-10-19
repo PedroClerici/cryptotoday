@@ -17,8 +17,8 @@ type UserContextType = {
   setVsCurrency: (newState: VsCurrency) => void
   popularCryptosData: MarketData
   setPopularCryptosData: (newState: MarketData) => void
-  marketChartData: MarketChart
-  setMarketChartData: (newState: MarketChart) => void
+  marketChartData: MarketChart | null
+  setMarketChartData: (newState: MarketChart | null) => void
 }
 
 type UserContextProps = {
@@ -47,7 +47,7 @@ const defaultValue = {
   setVsCurrency: () => {},
   popularCryptosData: [],
   setPopularCryptosData: () => {},
-  marketChartData: [{ time: new Date(), price: 0 }],
+  marketChartData: null,
   setMarketChartData: () => {},
 };
 
@@ -62,7 +62,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     popularCryptosData,
     setPopularCryptosData,
   ] = useState<MarketData>(defaultValue.popularCryptosData);
-  const [marketChartData, setMarketChartData] = useState<MarketChart>(defaultValue.marketChartData);
+  const [marketChartData, setMarketChartData] = useState<MarketChart | null>(null);
 
   useEffect(() => {
     cryptoInfoService.getCryptoInfo(cryptocurrency.id, vsCurrency.id)
@@ -78,6 +78,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     cryptoInfoService.getMarketData(popularCryptosIds, vsCurrency.id)
       .then((data) => setPopularCryptosData(data));
 
+    setMarketChartData(null);
     cryptoInfoService.getMarketChart(cryptocurrency.id, vsCurrency.id, prevDays)
       .then((data) => setMarketChartData(data));
   }, [cryptocurrency, vsCurrency, prevDays]);
