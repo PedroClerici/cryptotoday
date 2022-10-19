@@ -9,6 +9,7 @@ import React, {
 import * as d3 from 'd3';
 import { TimeInterval } from 'd3';
 import { UserContext } from '../../../context/userContext';
+import Spinner from '../../UI/Spinner';
 import './styles.scss';
 
 const formatter = d3.format('~s');
@@ -179,7 +180,7 @@ const LineChart = () => {
   }, [marketChartData, width, height, isMobile]);
 
   if (!marketChartData) {
-    return <h1>Loading...</h1>;
+    return <Spinner className="line-chart"/>;
   }
 
   return (
