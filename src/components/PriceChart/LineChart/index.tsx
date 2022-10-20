@@ -180,7 +180,7 @@ const LineChart = () => {
   }, [marketChartData, width, height, isMobile]);
 
   if (!marketChartData) {
-    return <Spinner className="line-chart"/>;
+    return <Spinner className="line-chart" />;
   }
 
   return (
