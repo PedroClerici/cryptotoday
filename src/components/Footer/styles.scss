@@ -3,23 +3,31 @@
 
 .footer {
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: px-to-rem(90);
   border-top: solid 1px var(--surface-shade-color);
   
-  
+  a {
+    font-size: inherit;
+    color: var(--gray-color);
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   &__description {
     color: var(--gray-color);
     text-align: center;
     
-    a {
-      font-size: inherit;
-      color: var(--gray-color);
-      
-      &:hover {
-        text-decoration: underline;
-      }
+
+  }
+
+  &__powered-by {
+    color: var(--gray-color);
+    margin-left: auto;
+
+    img {
+      height: 40px;
     }
   }
 
@@ -29,9 +37,23 @@
     grid-column: 1 / -1;
     grid-row: 3 / -1;
     justify-content: flex-start;
+    padding-top: px-to-rem(10);
 
     &__description {
       text-align: left;
+    }
+
+  }
+
+  @include breakpoint-down(medium) {
+    align-items: center;
+
+    &__description {
+      margin-inline: auto;
+    }
+
+    &__powered-by {
+      display: none;
     }
   }
 }

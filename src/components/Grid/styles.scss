@@ -17,7 +17,7 @@ body {
     // TODO: turn columns and gap size responsive.
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: px-to-rem(26);
-    row-gap: px-to-rem(28);
+    row-gap: px-to-rem(26);
 
     main {
       grid-column: 1 / 9;
