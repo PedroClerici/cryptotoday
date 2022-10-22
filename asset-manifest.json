@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/cryptotoday/static/css/main.8cbbeb78.css",
-    "main.js": "/cryptotoday/static/js/main.fd0627c3.js",
+    "main.css": "/cryptotoday/static/css/main.c53b464b.css",
+    "main.js": "/cryptotoday/static/js/main.9bc37005.js",
     "static/media/ape.png": "/cryptotoday/static/media/ape.b436ee792f001a9477d6.png",
     "static/media/klown.png": "/cryptotoday/static/media/klown.d35bb5a4449cbe8269a5.png",
     "static/media/arnx.png": "/cryptotoday/static/media/arnx.d391a89ae65aea9dd386.png",
     "static/media/logo.svg": "/cryptotoday/static/media/logo.3be6666a640363fcb2b60570471e7756.svg",
+    "static/media/coingecko.svg": "/cryptotoday/static/media/coingecko.977d6a0aa89b1300865c1e9b164d475f.svg",
     "static/media/search.svg": "/cryptotoday/static/media/search.5833247ecca92326538b72789a9b5360.svg",
     "index.html": "/cryptotoday/index.html",
     "static/media/arrow.svg": "/cryptotoday/static/media/arrow.d0e85cf61dbee248cb846d21ef9242df.svg",
     "static/media/close.svg": "/cryptotoday/static/media/close.2368e04611ffef7bf86887af2f471db8.svg",
-    "main.8cbbeb78.css.map": "/cryptotoday/static/css/main.8cbbeb78.css.map",
-    "main.fd0627c3.js.map": "/cryptotoday/static/js/main.fd0627c3.js.map"
+    "main.c53b464b.css.map": "/cryptotoday/static/css/main.c53b464b.css.map",
+    "main.9bc37005.js.map": "/cryptotoday/static/js/main.9bc37005.js.map"
   },
   "entrypoints": [
-    "static/css/main.8cbbeb78.css",
-    "static/js/main.fd0627c3.js"
+    "static/css/main.c53b464b.css",
+    "static/js/main.9bc37005.js"
   ]
 }
