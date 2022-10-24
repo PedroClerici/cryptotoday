@@ -1,13 +1,9 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/userContext';
-
 import './styles.scss';
 
 const CryptoPriceData = () => {
-  const {
-    cryptocurrency,
-    vsCurrency,
-  } = useContext(UserContext);
+  const { cryptocurrency, vsCurrency } = useContext(UserContext);
 
   return (
     <div className="crypto-price-info">

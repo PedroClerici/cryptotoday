@@ -1,5 +1,3 @@
-// TODO: Improve line graph responsiveness
-// @ts-nocheck
 import React, {
   useState,
   useRef,
@@ -76,8 +74,8 @@ const LineChart = () => {
     dimensions
       .containerHeight = dimensions.height - dimensions.margins.top - dimensions.margins.bottom;
 
-    let parseDate: (() => {}) | null;
-    let ticksTime: TimeInterval | null;
+    let parseDate: ((date: Date) => string) | null = null;
+    let ticksTime: TimeInterval | null | number = null;
     switch (prevDays) {
       case 1:
         parseDate = null;
@@ -103,8 +101,6 @@ const LineChart = () => {
         parseDate = d3.timeFormat('%b/%Y');
         ticksTime = isMobile ? d3.timeMonth.every(4) : d3.timeMonth.every(2);
         break;
-      default:
-        break;
     }
 
     // Selections:
@@ -126,11 +122,13 @@ const LineChart = () => {
     // Scales:
     const yScale = d3
       .scaleLinear()
+      //@ts-ignore
       .domain(d3.extent(marketChartData, yAccessor)!)
       .range([dimensions.containerHeight, 0]);
 
     const xScale = d3
       .scaleTime()
+      //@ts-ignore
       .domain(d3.extent(marketChartData, xAccessor)!)
       .range([0, dimensions.containerWidth]);
 
@@ -155,7 +153,7 @@ const LineChart = () => {
       .axisBottom(xScale)
       .tickSize(0)
       .ticks(ticksTime)
-      .tickFormat(parseDate)
+      .tickFormat(parseDate!)
       .tickPadding(dimensions.margins.bottom / 2);
 
     container
@@ -169,11 +167,14 @@ const LineChart = () => {
 
     // Drawing the line:
     const lineGenerator = d3.line()
+      //@ts-ignore
       .x((d) => xScale(xAccessor(d)))
+      //@ts-ignore
       .y((d) => yScale(yAccessor(d)));
 
     container.append('path')
       .attr('class', 'line-path')
+      //@ts-ignore
       .attr('d', lineGenerator(marketChartData));
 
     getSvgContainerSize();

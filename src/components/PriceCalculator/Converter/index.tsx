@@ -1,6 +1,3 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable import/no-dynamic-require */
-/* eslint-disable global-require */
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../../context/userContext';
 import { priceFormatter } from '../../../services/cryptoInfoService';

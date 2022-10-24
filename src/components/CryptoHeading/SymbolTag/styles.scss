@@ -5,10 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   background-color: var(--surface-dim-color);
   border-radius: px-to-rem(6);
-
   padding: px-to-rem(3) px-to-rem(4);
 
   &__symbol {

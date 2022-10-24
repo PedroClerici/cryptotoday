@@ -1,20 +1,14 @@
 @use 'src/styles/functions' as *;
 @use 'src/styles/mixins' as *;
 
-body {
-  overflow-x: hidden;
-}
-
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(6, auto);
-
   width: min(100% - px-to-rem(20), 76rem);
   margin-inline: auto;
 
   @include breakpoint-up(large) {
-    // TODO: turn columns and gap size responsive.
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: px-to-rem(26);
     row-gap: px-to-rem(26);

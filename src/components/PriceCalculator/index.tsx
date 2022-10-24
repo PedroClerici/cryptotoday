@@ -1,8 +1,6 @@
 import React from 'react';
-
 import CurrencySelector from './CurrencySelector';
 import Converter from './Converter';
-
 import './styles.scss';
 
 const PriceCalculator = () => (

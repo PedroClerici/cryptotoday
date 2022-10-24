@@ -1,10 +1,6 @@
-/* eslint-disable global-require */
-/* eslint-disable import/no-dynamic-require */
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/userContext';
-
 import SymbolTag from './SymbolTag';
-
 import './styles.scss';
 
 const CryptoHeading = () => {

@@ -7,7 +7,6 @@ import React, {
 import arrow from '../../../assets/arrow.svg';
 import { UserContext } from '../../../context/userContext';
 import { vsCurrenciesList } from '../../../currencies/vsCurrencies';
-
 import './styles.scss';
 
 const CurrencySelector = () => {
