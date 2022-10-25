@@ -2,11 +2,20 @@
 @use 'src/styles/mixins' as *;
 
 .line-chart {
+  position: relative;
   height: px-to-rem(287);
 
   // Weird resizing bug???
   width: 99%;
   justify-self: center;
+
+  &__tool-tip {
+    box-sizing: border-box;
+    background-color: var(--surface-color);
+    padding: px-to-rem(10);
+    border-radius: px-to-rem(6);
+    box-shadow: 0 0 4px rgba($color: #000000, $alpha: 0.1);
+  }
 
   @include breakpoint-up(large) {
     height: px-to-rem(372);

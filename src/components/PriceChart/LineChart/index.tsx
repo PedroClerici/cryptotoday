@@ -1,3 +1,4 @@
+/* eslint-disable spaced-comment */
 import React, {
   useState,
   useRef,
@@ -6,6 +7,7 @@ import React, {
 } from 'react';
 import * as d3 from 'd3';
 import { TimeInterval } from 'd3';
+import { priceFormatter } from '../../../services/cryptoInfoService';
 import { UserContext } from '../../../context/userContext';
 import Spinner from '../../UI/Spinner';
 import './styles.scss';
@@ -21,9 +23,15 @@ const amountFormat = (amount: number) => {
 
 const LineChart = () => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
   const svgContainer = useRef<HTMLDivElement>(null);
 
-  const { marketChartData, prevDays, isMobile } = useContext(UserContext);
+  const {
+    marketChartData,
+    prevDays,
+    vsCurrency,
+    isMobile,
+  } = useContext(UserContext);
 
   const [width, setWidth] = useState<number>();
   const [height, setHeight] = useState<number>();
@@ -67,6 +75,7 @@ const LineChart = () => {
       },
       containerWidth: 0,
       containerHeight: 0,
+      tooltipWidth: 200,
     };
 
     dimensions
@@ -74,6 +83,7 @@ const LineChart = () => {
     dimensions
       .containerHeight = dimensions.height - dimensions.margins.top - dimensions.margins.bottom;
 
+    // eslint-disable-next-line no-unused-vars
     let parseDate: ((date: Date) => string) | null = null;
     let ticksTime: TimeInterval | null | number = null;
     switch (prevDays) {
@@ -101,14 +111,14 @@ const LineChart = () => {
         parseDate = d3.timeFormat('%b/%Y');
         ticksTime = isMobile ? d3.timeMonth.every(4) : d3.timeMonth.every(2);
         break;
+      default:
+        break;
     }
 
     // Selections:
     const svg = d3
       .select(svgRef.current)
-      .classed('line-chart__svg', true)
-      .attr('width', dimensions.width)
-      .attr('height', dimensions.height);
+      .classed('line-chart__svg', true);
 
     // Clear previous content on refresh:
     const everything = svg.selectAll('*');
@@ -118,6 +128,20 @@ const LineChart = () => {
       .append('g')
       .classed('container', true)
       .attr('transform', `translate(${dimensions.margins.left}, ${dimensions.margins.top})`);
+
+    const tooltip = d3.select(tooltipRef.current)
+      .style('width', `${dimensions.tooltipWidth}px`)
+      .style('position', 'absolute');
+
+    const tooltipDot = container
+      .append('circle')
+      .classed('line-chart__tool-tip-dot', true)
+      .attr('r', 5)
+      .attr('fill', 'var(--surface-color)')
+      .attr('stroke', 'var(--blue-color)')
+      .attr('stroke-width', 3)
+      .style('opacity', 0)
+      .style('pointer-events', 'none');
 
     // Scales:
     const yScale = d3
@@ -177,6 +201,48 @@ const LineChart = () => {
       //@ts-ignore
       .attr('d', lineGenerator(marketChartData));
 
+    // Tooltip
+    container
+      .append('rect')
+      .classed('mouse-tracker', true)
+      .attr('width', dimensions.containerWidth)
+      .attr('height', dimensions.containerHeight)
+      .style('opacity', 0)
+      .on('touchmouse mousemove', (event) => {
+        const mousePos = d3.pointer(event, this);
+
+        // x coordinate stored in mousePos index 0
+        const date = xScale.invert(mousePos[0]);
+
+        // Custom Bisector - left, center, right
+        const dateBisector = d3.bisector(xAccessor).center;
+
+        const bisectionIndex = dateBisector(marketChartData, date);
+        //console.log(bisectionIndex);
+        // math.max prevents negative index reference error
+        const hoveredIndexData = marketChartData[Math.max(0, bisectionIndex)];
+
+        // Update Image
+        tooltipDot
+          .style('opacity', 1)
+          .attr('cx', xScale(xAccessor(hoveredIndexData)))
+          .attr('cy', yScale(yAccessor(hoveredIndexData)))
+          .raise();
+
+        tooltip
+          .style('display', 'block')
+          .style('top', '0')
+          .style('left', xScale(xAccessor(hoveredIndexData)) > dimensions.containerWidth / 2 ? '0px' : `${dimensions.containerWidth - (dimensions.tooltipWidth)}px`);
+
+        tooltip.select('.data').text(`${vsCurrency.symbol}${priceFormatter(yAccessor(hoveredIndexData))}`);
+
+        const dateFormatter = d3.timeFormat('%B %-d, %Y');
+        tooltip.select('.date').text(`${dateFormatter(xAccessor(hoveredIndexData))}`);
+      })
+      .on('mouseleave', () => {
+        tooltipDot.style('opacity', 0);
+        tooltip.style('display', 'none');
+      });
     getSvgContainerSize();
   }, [marketChartData, width, height, isMobile]);
 
@@ -187,6 +253,10 @@ const LineChart = () => {
   return (
     <div ref={svgContainer} className="line-chart">
       <svg ref={svgRef} width={width} height={height} />
+      <div ref={tooltipRef} className="line-chart__tool-tip">
+        <div className="data" />
+        <div className="date" />
+      </div>
     </div>
   );
 };
