@@ -136,10 +136,10 @@ const LineChart = () => {
     const tooltipDot = container
       .append('circle')
       .classed('line-chart__tool-tip-dot', true)
-      .attr('r', 5)
-      .attr('fill', 'var(--surface-color)')
-      .attr('stroke', 'var(--blue-color)')
-      .attr('stroke-width', 3)
+      .attr('r', 5.3)
+      .attr('fill', 'var(--blue-color)')
+      .attr('stroke', 'var(--surface-color)')
+      .attr('stroke-width', 2.5)
       .style('opacity', 0)
       .style('pointer-events', 'none');
 

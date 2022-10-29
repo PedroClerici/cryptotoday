@@ -10,6 +10,7 @@
   justify-self: center;
 
   &__tool-tip {
+    display: none;
     box-sizing: border-box;
     background-color: var(--surface-color);
     padding: px-to-rem(10);
@@ -21,7 +22,6 @@
     height: px-to-rem(372);
     width: 100%;
   }
-
 }
 
 .tick {
@@ -44,6 +44,6 @@
 .line-path {
   fill: none;
   stroke: var(--blue-color);
-  stroke-width: px-to-rem(3);
+  stroke-width: px-to-rem(2.75);
   stroke-linejoin: round;
 }
