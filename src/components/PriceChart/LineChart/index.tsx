@@ -75,7 +75,7 @@ const LineChart = () => {
       },
       containerWidth: 0,
       containerHeight: 0,
-      tooltipWidth: 200,
+      tooltipWidth: isMobile ? 155 : 200,
     };
 
     dimensions
@@ -142,6 +142,10 @@ const LineChart = () => {
       .attr('stroke-width', 2.5)
       .style('opacity', 0)
       .style('pointer-events', 'none');
+
+    const tooltipLine = container
+      .append('line')
+      .classed('line-chart__tool-tip-line', true);
 
     // Scales:
     const yScale = d3
@@ -223,6 +227,13 @@ const LineChart = () => {
         const hoveredIndexData = marketChartData[Math.max(0, bisectionIndex)];
 
         // Update Image
+        tooltipLine
+          .style('opacity', 1)
+          .attr('x1', xScale(xAccessor(hoveredIndexData)))
+          .attr('x2', xScale(xAccessor(hoveredIndexData)))
+          .attr('y1', 0)
+          .attr('y2', dimensions.containerHeight);
+
         tooltipDot
           .style('opacity', 1)
           .attr('cx', xScale(xAccessor(hoveredIndexData)))
@@ -240,6 +251,7 @@ const LineChart = () => {
         tooltip.select('.date').text(`${dateFormatter(xAccessor(hoveredIndexData))}`);
       })
       .on('mouseleave', () => {
+        tooltipLine.style('opacity', 0);
         tooltipDot.style('opacity', 0);
         tooltip.style('display', 'none');
       });

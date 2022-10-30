@@ -18,6 +18,12 @@
     box-shadow: 0 0 4px rgba($color: #000000, $alpha: 0.1);
   }
 
+  &__tool-tip-line {
+    stroke: var(--surface-shade-color);
+    stroke-width: px-to-rem(1);
+    stroke-dasharray: 3 3;
+  }
+
   @include breakpoint-up(large) {
     height: px-to-rem(372);
     width: 100%;
